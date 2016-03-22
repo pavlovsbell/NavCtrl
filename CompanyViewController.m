@@ -34,9 +34,9 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    
-    self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices"];
+  
+    self.companyList = [[NSMutableArray alloc] initWithObjects:@"Apple mobile devices",@"Samsung mobile devices", @"HTC mobile devices", @"Blackberry mobile devices", nil];
+    self.companyLogos = [[NSMutableArray alloc] initWithObjects:[UIImage imageNamed:@"logoApple.png"],[UIImage imageNamed:@"logoSamsung.png"],[UIImage imageNamed:@"logoHTC.jpg"],[UIImage imageNamed:@"logoBlackberry.png"], nil];
     self.title = @"Mobile device makers";
     
     
@@ -52,14 +52,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [self.companyList count];
 }
@@ -75,48 +73,57 @@
     // Configure the cell...
     
     cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
+    cell.imageView.image = [self.companyLogos objectAtIndex:[indexPath row]];
     
     return cell;
 }
 
-/*
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
+
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        [self.companyList removeObjectAtIndex:indexPath.row];
+        [self.companyLogos removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
+        
+        [self.tableView reloadData];
+    }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
 
-/*
+
+
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
+    NSString *companyRow = [[self.companyList objectAtIndex:fromIndexPath.row] retain];
+    [self.companyList removeObject:companyRow];
+    [self.companyList insertObject:companyRow atIndex:toIndexPath.row];
+    [companyRow release];
 }
-*/
 
-/*
+
+
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
-*/
+
 
 
 #pragma mark - Table view delegate
@@ -124,19 +131,24 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-
     if (indexPath.row == 0){
+        self.productViewController.logo = [UIImage imageNamed:@"logoApple.png"];
         self.productViewController.title = @"Apple mobile devices";
-    } else {
+    } else if (indexPath.row == 1){
+        self.productViewController.logo = [UIImage imageNamed:@"logoSamsung.png"];
         self.productViewController.title = @"Samsung mobile devices";
+    } else if (indexPath.row == 2){
+        self.productViewController.logo = [UIImage imageNamed:@"logoHTC.jpg"];
+        self.productViewController.title = @"HTC mobile devices";
+    } else {
+        self.productViewController.logo = [UIImage imageNamed:@"logoBlackberry.png"];
+        self.productViewController.title = @"Blackberry mobile devices";
     }
     
+    // Sends you to products on next table?
     [self.navigationController
         pushViewController:self.productViewController
         animated:YES];
-    
-
 }
  
 

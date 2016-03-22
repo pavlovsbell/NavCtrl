@@ -23,6 +23,14 @@
 		48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A656E518163C1B00746D36 /* CompanyViewController.xib */; };
 		48A656EB18163F8700746D36 /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656E918163F8700746D36 /* ProductViewController.m */; };
 		48A656EE1816468000746D36 /* Sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48A656ED1816468000746D36 /* Sunflower.gif */; };
+		DA6369021C98CBC2004C7460 /* logoApple.png in Resources */ = {isa = PBXBuildFile; fileRef = DA6368FE1C98CBC2004C7460 /* logoApple.png */; };
+		DA6369031C98CBC2004C7460 /* logoBlackberry.png in Resources */ = {isa = PBXBuildFile; fileRef = DA6368FF1C98CBC2004C7460 /* logoBlackberry.png */; };
+		DA6369041C98CBC2004C7460 /* logoHTC.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA6369001C98CBC2004C7460 /* logoHTC.jpg */; };
+		DA6369051C98CBC2004C7460 /* logoSamsung.png in Resources */ = {isa = PBXBuildFile; fileRef = DA6369011C98CBC2004C7460 /* logoSamsung.png */; };
+		DA63690B1C99ECA8004C7460 /* ProductWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6369091C99ECA8004C7460 /* ProductWebViewController.m */; };
+		DA63690C1C99ECA8004C7460 /* ProductWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA63690A1C99ECA8004C7460 /* ProductWebViewController.xib */; };
+		DA63690F1C9CD8BF004C7460 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA63690E1C9CD8BF004C7460 /* WebKit.framework */; };
+		DA6369121CA0BEA2004C7460 /* CompanyClass.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6369111CA0BEA2004C7460 /* CompanyClass.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +66,16 @@
 		48A656E818163F8700746D36 /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductViewController.h; path = ../ProductViewController.h; sourceTree = "<group>"; };
 		48A656E918163F8700746D36 /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewController.m; path = ../ProductViewController.m; sourceTree = "<group>"; };
 		48A656ED1816468000746D36 /* Sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sunflower.gif; sourceTree = "<group>"; };
+		DA6368FE1C98CBC2004C7460 /* logoApple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logoApple.png; path = Images/logoApple.png; sourceTree = SOURCE_ROOT; };
+		DA6368FF1C98CBC2004C7460 /* logoBlackberry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logoBlackberry.png; path = Images/logoBlackberry.png; sourceTree = SOURCE_ROOT; };
+		DA6369001C98CBC2004C7460 /* logoHTC.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logoHTC.jpg; path = Images/logoHTC.jpg; sourceTree = SOURCE_ROOT; };
+		DA6369011C98CBC2004C7460 /* logoSamsung.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logoSamsung.png; path = Images/logoSamsung.png; sourceTree = SOURCE_ROOT; };
+		DA6369081C99ECA8004C7460 /* ProductWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductWebViewController.h; path = ../ProductWebViewController.h; sourceTree = "<group>"; };
+		DA6369091C99ECA8004C7460 /* ProductWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductWebViewController.m; path = ../ProductWebViewController.m; sourceTree = "<group>"; };
+		DA63690A1C99ECA8004C7460 /* ProductWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProductWebViewController.xib; path = ../ProductWebViewController.xib; sourceTree = "<group>"; };
+		DA63690E1C9CD8BF004C7460 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		DA6369101CA0BEA2004C7460 /* CompanyClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyClass.h; sourceTree = "<group>"; };
+		DA6369111CA0BEA2004C7460 /* CompanyClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyClass.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA63690F1C9CD8BF004C7460 /* WebKit.framework in Frameworks */,
 				48A656B718163BF200746D36 /* CoreGraphics.framework in Frameworks */,
 				48A656B918163BF200746D36 /* UIKit.framework in Frameworks */,
 				48A656B518163BF200746D36 /* Foundation.framework in Frameworks */,
@@ -98,6 +117,9 @@
 			children = (
 				48A656E318163C1B00746D36 /* CompanyViewController.h */,
 				48A656E418163C1B00746D36 /* CompanyViewController.m */,
+				48A656E518163C1B00746D36 /* CompanyViewController.xib */,
+				DA6369101CA0BEA2004C7460 /* CompanyClass.h */,
+				DA6369111CA0BEA2004C7460 /* CompanyClass.m */,
 			);
 			name = ParentViewController;
 			sourceTree = "<group>";
@@ -133,6 +155,7 @@
 		48A656B318163BF200746D36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA63690E1C9CD8BF004C7460 /* WebKit.framework */,
 				48A656B418163BF200746D36 /* Foundation.framework */,
 				48A656B618163BF200746D36 /* CoreGraphics.framework */,
 				48A656B818163BF200746D36 /* UIKit.framework */,
@@ -147,8 +170,8 @@
 				483796CB1BCBF7A00062D5AB /* AppDelegate */,
 				483796CC1BCBF7C70062D5AB /* ParentViewController */,
 				483796CD1BCBF7EB0062D5AB /* ProductViewController */,
+				DA63690D1C99ECCF004C7460 /* ProductWebViewController */,
 				48A656C618163BF200746D36 /* Images.xcassets */,
-				48A656E518163C1B00746D36 /* CompanyViewController.xib */,
 				48A656BB18163BF200746D36 /* Supporting Files */,
 			);
 			path = NavCtrl;
@@ -157,6 +180,10 @@
 		48A656BB18163BF200746D36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DA6368FE1C98CBC2004C7460 /* logoApple.png */,
+				DA6368FF1C98CBC2004C7460 /* logoBlackberry.png */,
+				DA6369001C98CBC2004C7460 /* logoHTC.jpg */,
+				DA6369011C98CBC2004C7460 /* logoSamsung.png */,
 				48A656ED1816468000746D36 /* Sunflower.gif */,
 				48A656BC18163BF200746D36 /* NavCtrl-Info.plist */,
 				48A656BD18163BF200746D36 /* InfoPlist.strings */,
@@ -182,6 +209,16 @@
 				48A656D618163BF200746D36 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DA63690D1C99ECCF004C7460 /* ProductWebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DA6369081C99ECA8004C7460 /* ProductWebViewController.h */,
+				DA6369091C99ECA8004C7460 /* ProductWebViewController.m */,
+				DA63690A1C99ECA8004C7460 /* ProductWebViewController.xib */,
+			);
+			name = ProductWebViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +298,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				48A656EE1816468000746D36 /* Sunflower.gif in Resources */,
+				DA6369051C98CBC2004C7460 /* logoSamsung.png in Resources */,
+				DA6369031C98CBC2004C7460 /* logoBlackberry.png in Resources */,
+				DA6369021C98CBC2004C7460 /* logoApple.png in Resources */,
+				DA63690C1C99ECA8004C7460 /* ProductWebViewController.xib in Resources */,
+				DA6369041C98CBC2004C7460 /* logoHTC.jpg in Resources */,
 				48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */,
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
@@ -284,7 +326,9 @@
 			files = (
 				48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
+				DA63690B1C99ECA8004C7460 /* ProductWebViewController.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
+				DA6369121CA0BEA2004C7460 /* CompanyClass.m in Sources */,
 				48A656EB18163F8700746D36 /* ProductViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
