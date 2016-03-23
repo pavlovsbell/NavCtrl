@@ -34,12 +34,10 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-  
-    self.companyList = [[NSMutableArray alloc] initWithObjects:@"Apple mobile devices",@"Samsung mobile devices", @"HTC mobile devices", @"Blackberry mobile devices", nil];
-    self.companyLogos = [[NSMutableArray alloc] initWithObjects:[UIImage imageNamed:@"logoApple.png"],[UIImage imageNamed:@"logoSamsung.png"],[UIImage imageNamed:@"logoHTC.jpg"],[UIImage imageNamed:@"logoBlackberry.png"], nil];
+    
     self.title = @"Mobile device makers";
     
-    
+    self.sharedDAO = [DAO sharedDAO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,7 +57,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.companyList count];
+    return [self.sharedDAO.companyList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -70,10 +68,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    // Configure the cell...
-    
-    cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
-    cell.imageView.image = [self.companyLogos objectAtIndex:[indexPath row]];
+    // Each cell displays the company logo and company name
+    cell.imageView.image = [[self.sharedDAO.companyList objectAtIndex:[indexPath row]] companyLogo];
+    cell.textLabel.text = [[self.sharedDAO.companyList objectAtIndex:[indexPath row]] companyName];
     
     return cell;
 }
@@ -93,8 +90,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        [self.companyList removeObjectAtIndex:indexPath.row];
-        [self.companyLogos removeObjectAtIndex:indexPath.row];
+        [self.sharedDAO.companyList removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
         [self.tableView reloadData];
@@ -105,13 +101,12 @@
 }
 
 
-
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSString *companyRow = [[self.companyList objectAtIndex:fromIndexPath.row] retain];
-    [self.companyList removeObject:companyRow];
-    [self.companyList insertObject:companyRow atIndex:toIndexPath.row];
+    NSString *companyRow = [[self.sharedDAO.companyList objectAtIndex:fromIndexPath.row] retain];
+    [self.sharedDAO.companyList removeObject:companyRow];
+    [self.sharedDAO.companyList insertObject:companyRow atIndex:toIndexPath.row];
     [companyRow release];
 }
 
@@ -125,25 +120,13 @@
 }
 
 
-
 #pragma mark - Table view delegate
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0){
-        self.productViewController.logo = [UIImage imageNamed:@"logoApple.png"];
-        self.productViewController.title = @"Apple mobile devices";
-    } else if (indexPath.row == 1){
-        self.productViewController.logo = [UIImage imageNamed:@"logoSamsung.png"];
-        self.productViewController.title = @"Samsung mobile devices";
-    } else if (indexPath.row == 2){
-        self.productViewController.logo = [UIImage imageNamed:@"logoHTC.jpg"];
-        self.productViewController.title = @"HTC mobile devices";
-    } else {
-        self.productViewController.logo = [UIImage imageNamed:@"logoBlackberry.png"];
-        self.productViewController.title = @"Blackberry mobile devices";
-    }
+
+    self.productViewController.currentCompany = [self.sharedDAO.companyList objectAtIndex:indexPath.row];
     
     // Sends you to products on next table?
     [self.navigationController

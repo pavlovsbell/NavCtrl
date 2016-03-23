@@ -10,4 +10,15 @@
 
 @implementation CompanyClass
 
+- (id)initWithCompanyName:(NSString*)name andCompanyLogo:(UIImage*)logo andCompanyProducts:(NSMutableArray*)products {
+   
+    self = [super init];
+    if (self) {
+        self.companyName = name;
+        self.companyLogo = logo;
+        self.companyProducts = products;
+    }
+    return(self);
+}
+
 @end

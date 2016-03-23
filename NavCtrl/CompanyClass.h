@@ -14,4 +14,6 @@
 @property (nonatomic, retain) UIImage *companyLogo;
 @property (nonatomic, retain) NSMutableArray *companyProducts;
 
+- (id)initWithCompanyName:(NSString*)name andCompanyLogo:(UIImage*)logo andCompanyProducts:(NSMutableArray*)products;
+
 @end

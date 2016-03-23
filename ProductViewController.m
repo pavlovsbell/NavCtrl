@@ -11,12 +11,6 @@
 
 @interface ProductViewController ()
 
-@property (nonatomic, retain) NSMutableArray *appleProducts;
-@property (nonatomic, retain) NSMutableArray *samsungProducts;
-@property (nonatomic, retain) NSMutableArray *htcProducts;
-@property (nonatomic, retain) NSMutableArray *blackberryProducts;
-
-
 @end
 
 @implementation ProductViewController
@@ -39,38 +33,13 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
-    
-    self.products = [[NSMutableArray alloc] init];
-    
-    if ([self.title isEqualToString:@"Apple mobile devices"]) {
-        // Make sure product is still deleted after leaving view
-        if (!self.appleProducts) {
-            self.appleProducts = [[NSMutableArray alloc] initWithObjects:@"iPad", @"iPod Touch",@"iPhone", nil];
-        }
-        self.products = self.appleProducts;
-    } else if ([self.title isEqualToString:@"Samsung mobile devices"]) {
-        if (!self.samsungProducts) {
-            self.samsungProducts = [[NSMutableArray alloc] initWithObjects:@"Galaxy S4", @"Galaxy Note", @"Galaxy Tab", nil];
-        }
-        self.products = self.samsungProducts;
-    } else if ([self.title isEqualToString:@"HTC mobile devices"]) {
-        if (!self.htcProducts) {
-            self.htcProducts = [[NSMutableArray alloc] initWithObjects:@"HTC One",@"HTC Nexus",@"HTC Desire", nil];
-        }
-        self.products = self.htcProducts;
-    } else if ([self.title isEqualToString:@"Blackberry mobile devices"]) {
-        if (!self.blackberryProducts) {
-            self.blackberryProducts = [[NSMutableArray alloc] initWithObjects: @"Blackberry Classic",@"Blackberry Passport",@"Blackberry Priv", nil];
-        }
-        self.products = self.blackberryProducts;
-    }
     [self.tableView reloadData];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,7 +59,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.products count];
+    return [self.currentCompany.companyProducts count];
     
     
 }
@@ -102,9 +71,9 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    // Configure the cell...
-    cell.textLabel.text = [self.products objectAtIndex:[indexPath row]];
-    cell.imageView.image = self.logo;
+    // Each cell displays company logo and product name
+    cell.textLabel.text = [[self.currentCompany.companyProducts objectAtIndex:[indexPath row]] productName];
+    cell.imageView.image = self.currentCompany.companyLogo;
     return cell;
 }
 
@@ -124,7 +93,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        [self.products removeObjectAtIndex:indexPath.row];
+        [self.currentCompany.companyProducts removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }   
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
@@ -137,9 +106,9 @@
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSString *productRow = [[self.products objectAtIndex:fromIndexPath.row] retain];
-    [self.products removeObject:productRow];
-    [self.products insertObject:productRow atIndex:toIndexPath.row];
+    NSString *productRow = [[self.currentCompany.companyProducts objectAtIndex:fromIndexPath.row] retain];
+    [self.currentCompany.companyProducts removeObject:productRow];
+    [self.currentCompany.companyProducts insertObject:productRow atIndex:toIndexPath.row];
     [productRow release];
 }
 
@@ -161,47 +130,8 @@
 {
     // Pass the selected object to the new view controller. Can access properties of ProductWebViewController by adding ".urlname"
     ProductWebViewController *webViewController = [[ProductWebViewController alloc] initWithNibName:@"ProductWebViewController" bundle:nil];
-
-    if ([self.title  isEqual: @"Apple mobile devices"]) {
-        if (indexPath.row == 0){
-            webViewController.productURL = [NSURL URLWithString:@"http://www.apple.com/ipad/"];
-        } else if (indexPath.row == 1){
-            webViewController.productURL = [NSURL URLWithString:@"http://www.apple.com/ipod/"];
-        } else if (indexPath.row == 2){
-            webViewController.productURL = [NSURL URLWithString:@"http://www.apple.com/iphone/"];
-        }
-    }
-    
-    if ([self.title  isEqual: @"Samsung mobile devices"]) {
-        if (indexPath.row == 0){
-            webViewController.productURL = [NSURL URLWithString:@"http://www.samsung.com/global/galaxy/"];
-        } else if (indexPath.row == 1){
-            webViewController.productURL = [NSURL URLWithString:@"http://www.samsung.com/global/galaxy/galaxy-note5/"];
-        } else if (indexPath.row == 2){
-            webViewController.productURL = [NSURL URLWithString:@"http://www.samsung.com/us/mobile/galaxy-tab/"];
-        }
-    }
-    
-    if ([self.title  isEqual: @"HTC mobile devices"]) {
-        if (indexPath.row == 0){
-            webViewController.productURL = [NSURL URLWithString:@"http://www.htc.com/us/smartphones/htc-one-m8/"];
-        } else if (indexPath.row == 1){
-            webViewController.productURL = [NSURL URLWithString:@"http://www.htc.com/us/tablets/nexus-9/"];
-        } else if (indexPath.row == 2){
-            webViewController.productURL = [NSURL URLWithString:@"http://www.htc.com/us/smartphones/htc-desire-626/"];
-        }
-    }
-    
-    if ([self.title  isEqual: @"Blackberry mobile devices"]) {
-        if (indexPath.row == 0){
-            webViewController.productURL = [NSURL URLWithString:@"http://us.blackberry.com/smartphones/blackberry-classic/overview.html"];
-        } else if (indexPath.row == 1){
-            webViewController.productURL = [NSURL URLWithString:@"http://us.blackberry.com/smartphones/blackberry-passport/overview.html"];
-        } else if (indexPath.row == 2){
-            webViewController.productURL = [NSURL URLWithString:@"http://us.blackberry.com/smartphones/priv-by-blackberry/overview.html"];
-        }
-    }
-    
+    webViewController.productURLRequest = [[self.currentCompany.companyProducts objectAtIndex:indexPath.row] productURL];
+        
     // Push the view controller.
     [self.navigationController pushViewController:webViewController animated:YES];
     

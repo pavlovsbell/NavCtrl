@@ -12,6 +12,6 @@
 @interface ProductWebViewController : UIViewController
 
 @property (retain, nonatomic) IBOutlet WKWebView *webView;
-@property (nonatomic, retain) NSURL *productURL;
+@property (nonatomic, retain) NSURL *productURLRequest;
 
 @end
