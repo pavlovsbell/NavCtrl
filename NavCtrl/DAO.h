@@ -13,7 +13,7 @@
 
 @interface DAO : NSObject
 
-@property (nonatomic, retain) NSMutableArray *companyList;
+@property (nonatomic, retain) NSMutableArray <CompanyClass*> *companyList;
 
 + (instancetype)sharedDAO;
 

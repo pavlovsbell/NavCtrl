@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "ProductClass.h"
 #import "CompanyClass.h"
+#import "DAO.h"
 
 @class ProductWebViewController;
 
 @interface ProductViewController : UITableViewController
+
 @property (nonatomic, retain) NSMutableArray *products;
 @property (nonatomic, retain) UIImage *logo;
 @property (nonatomic, retain) CompanyClass *currentCompany;
-
-
 
 @end

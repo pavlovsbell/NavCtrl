@@ -23,7 +23,9 @@
             </connections>
         </tableView>
         <viewController id="Xwu-Pd-0Xh" userLabel="ProductViewController" customClass="ProductViewController">
+            <toolbarItems/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
+            <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
         </viewController>
         <view contentMode="scaleToFill" id="bKn-UP-3Lv">
             <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>

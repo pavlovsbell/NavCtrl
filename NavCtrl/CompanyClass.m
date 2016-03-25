@@ -14,9 +14,11 @@
    
     self = [super init];
     if (self) {
-        self.companyName = name;
-        self.companyLogo = logo;
-        self.companyProducts = products;
+        _companyLogo = [[UIImage alloc] init];
+        _companyProducts = [[NSMutableArray alloc] init];
+        _companyName = name;
+        _companyLogo = logo;
+        _companyProducts = products;
     }
     return(self);
 }
