@@ -18,4 +18,7 @@
 @property (nonatomic, retain) IBOutlet  ProductViewController *productViewController;
 @property (nonatomic, retain) DAO *sharedDAO;
 
+
+- (void)getStockPrices;
+
 @end

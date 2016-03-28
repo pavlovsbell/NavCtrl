@@ -46,6 +46,57 @@
     // Two buttons on the right side
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: self.editButtonItem, addCompanyButton, nil];
     self.navigationController.toolbarHidden = YES;
+    
+
+    
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    // Display stock quote for each company
+    [self getStockPrices];
+    
+}
+
+- (void)getStockPrices {
+    
+    // Create NSURLSession
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    
+    // Set URL to get data from
+    NSURL *url = [NSURL URLWithString:@"http://finance.yahoo.com/d/quotes.csv?s=AAPL+005930.KS+2498.TW+BBRY&f=l1"];
+    
+    // Request to load the URL
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"GET"];
+    
+    // Retrieve the contents of the URL as a data object
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        // Turn data into a string
+        NSString *content = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+        NSLog(@"%@", content);
+        
+        // Create array to hold stock prices
+        NSArray *stockQuotes = [[NSArray alloc] init];
+        stockQuotes = [content componentsSeparatedByString:@"\n"];
+        
+        // Loop through stockQuotes adding companyStockPrice for each
+        for (int i = 0; i < self.sharedDAO.companyList.count; i++) {
+            [self.sharedDAO.companyList objectAtIndex:i].companyStockPrice = [stockQuotes objectAtIndex:i];
+            NSLog(@"Stock price for %@ is %@",[self.sharedDAO.companyList objectAtIndex:i].companyName,[self.sharedDAO.companyList objectAtIndex:i].companyStockPrice);
+        }
+        
+        // Since we are in a block, must dispatch to get back to the main queue
+        dispatch_async(dispatch_get_main_queue(), ^{
+              [self.tableView reloadData];
+        });
+    }];
+    [dataTask resume];
+    
 }
 
 - (void)addCompany {
@@ -127,13 +178,14 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
+
     // Each cell displays the company logo and company name
     cell.imageView.image = [[self.sharedDAO.companyList objectAtIndex:[indexPath row]] companyLogo];
     cell.textLabel.text = [[self.sharedDAO.companyList objectAtIndex:[indexPath row]] companyName];
-    
+    cell.detailTextLabel.text = [[self.sharedDAO.companyList objectAtIndex:[indexPath row]] companyStockPrice];
     
     // Long press gesture to edit company
     UILongPressGestureRecognizer *longPressRecognizer;
@@ -196,7 +248,6 @@
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
-    
 }
 
 
