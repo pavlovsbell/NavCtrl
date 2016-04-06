@@ -47,20 +47,17 @@
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: self.editButtonItem, addCompanyButton, nil];
     self.navigationController.toolbarHidden = YES;
     
-
-    
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     // Display stock quote for each company
+    [super viewWillAppear:animated]; // Calls superclass, best practice
     [self getStockPrices];
     
 }
 
 - (void)getStockPrices {
-    
     // Create NSURLSession
 //    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -81,8 +78,13 @@
         NSLog(@"%@", content);
         
         // Create array to hold stock prices
-        NSArray *stockQuotes = [[NSArray alloc] init];
-        stockQuotes = [content componentsSeparatedByString:@"\n"];
+        NSMutableArray *stockQuotes = [[[NSMutableArray alloc] initWithArray:[content componentsSeparatedByString:@"\n"]] autorelease];
+//        stockQuotes = [content componentsSeparatedByString:@"\n"];
+        
+        // Add objects to array (for new companies)
+        for (int c = 0; c < (self.sharedDAO.companyList.count); c++) {
+            [stockQuotes addObject:@"0.00"];
+        }
         
         // Loop through stockQuotes adding companyStockPrice for each
         for (int i = 0; i < self.sharedDAO.companyList.count; i++) {
@@ -100,11 +102,11 @@
 }
 
 - (void)addCompany {
-    
+
     // Create new alert
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Add a company" message:@"Please add your company name and up to three products" preferredStyle:UIAlertControllerStyleAlert];
     
-    // Alert text fields
+    // Alert text fields; get user input for properties
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *companyNameText){
         companyNameText.placeholder = @"Company Name";
     }];
@@ -119,32 +121,49 @@
     }];
     
     // Alert buttons
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *cancel){
-    }];
-    UIAlertAction *addCompanyAction = [UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction *addCompany){
+    UIAlertAction *cancel = [[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *cancel){
+    }] autorelease];
+    UIAlertAction *addCompanyAction = [[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction *addCompany){
         
-        // Adding a new company; create new company
-        CompanyClass *newCompany = [[CompanyClass alloc] init];
-        newCompany.companyProducts = [[NSMutableArray alloc] init];
+        
+        // Adding a new company; create new company and create array for new company's products
+        CompanyClass *newCompany = [[[CompanyClass alloc] init] autorelease];
+        newCompany.companyProducts = [[[NSMutableArray alloc] init] autorelease];
         
         // Add new company name to company list
         if (alertController.textFields[0].text != nil){
             
             newCompany.companyName = alertController.textFields[0].text;
-
-            [self.sharedDAO.companyList addObject:newCompany];
+            
+            // Add stock logo to new company and set stock price to 0
+            newCompany.companyLogo = @"logoCompany.jpg";
+            newCompany.companyStockPrice = @"0.00";
+            newCompany.companyIndex = self.sharedDAO.companyList.count;
+            
+            [self.sharedDAO addCompanyToDatabase:newCompany];
             [self.tableView reloadData];
         }
        
         // Iterate through products and add them to new company's product array
+       // NSString *string;
+        
         for (int i = 1; i < alertController.textFields.count; i++) {
             if (alertController.textFields[i].text != nil) {
                 ProductClass *product = [[ProductClass alloc] init];
                 product.productName = alertController.textFields[i].text;
-                [newCompany.companyProducts addObject:product];
+               // string = [NSString stringWithFormat:@"http://lmgtfy.com/?q=%@",product.productName];
+                NSURL *url = [[NSURL alloc] initWithString:@"https://www.google.com/"];
+                product.productURL = url;
+                product.productIndex = newCompany.companyProducts.count;
+                product.productCompanyID = [self.sharedDAO.companyList objectAtIndex:self.sharedDAO.companyList.count - 1].companyID;
+//                [newCompany.companyProducts addObject:product];
+                [self.sharedDAO addProduct:product toDatabaseOfCompany:newCompany];
+                [url release];
+                [product release];
             }
         }
-    }];
+        [self.sharedDAO displayProducts];
+    }] autorelease];
     
     [alertController addAction:addCompanyAction];
     [alertController addAction:cancel];
@@ -170,7 +189,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.sharedDAO.companyList count];
+    return self.sharedDAO.companyList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -178,18 +197,18 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     
 
     // Each cell displays the company logo and company name
-    cell.imageView.image = [[self.sharedDAO.companyList objectAtIndex:[indexPath row]] companyLogo];
+    cell.imageView.image = [UIImage imageNamed:[[self.sharedDAO.companyList objectAtIndex:[indexPath row]] companyLogo]];
     cell.textLabel.text = [[self.sharedDAO.companyList objectAtIndex:[indexPath row]] companyName];
     cell.detailTextLabel.text = [[self.sharedDAO.companyList objectAtIndex:[indexPath row]] companyStockPrice];
     
     // Long press gesture to edit company
     UILongPressGestureRecognizer *longPressRecognizer;
-    longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressFrom:)];
+    longPressRecognizer = [[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressFrom:)] autorelease];
     [longPressRecognizer setNumberOfTouchesRequired:1];
     [longPressRecognizer setMinimumPressDuration:2];
     [cell addGestureRecognizer:longPressRecognizer];
@@ -240,8 +259,10 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        [self.sharedDAO.companyList removeObjectAtIndex:indexPath.row];
+        int companyId = [[self.sharedDAO.companyList objectAtIndex:indexPath.row]companyID];
+        [self.sharedDAO deleteCompanyFromDatabase:companyId];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+
         
         [self.tableView reloadData];
     }
@@ -254,9 +275,10 @@
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSString *companyRow = [[self.sharedDAO.companyList objectAtIndex:fromIndexPath.row] retain];
+    CompanyClass *companyRow = [[self.sharedDAO.companyList objectAtIndex:fromIndexPath.row] retain];
     [self.sharedDAO.companyList removeObject:companyRow];
     [self.sharedDAO.companyList insertObject:companyRow atIndex:toIndexPath.row];
+//    [self.sharedDAO changedIndexSavedToDatabase];
     [companyRow release];
 }
 

@@ -10,11 +10,10 @@
 
 @implementation CompanyClass
 
-- (id)initWithCompanyName:(NSString*)name andCompanyLogo:(UIImage*)logo andCompanyProducts:(NSMutableArray*)products {
+- (id)initWithCompanyName:(NSString*)name andCompanyLogo:(NSString*)logo andCompanyProducts:(NSMutableArray*)products {
    
     self = [super init];
     if (self) {
-        _companyLogo = [[UIImage alloc] init];
         _companyProducts = [[NSMutableArray alloc] init];
         _companyName = name;
         _companyLogo = logo;
@@ -22,5 +21,16 @@
     }
     return(self);
 }
+
+- (void)dealloc {
+    [_companyProducts release];
+    [_companyName release];
+    [_companyLogo release];
+//    _companyProducts = nil;
+//    _companyName = nil;
+//    _companyLogo = nil;
+    [super dealloc];
+}
+
 
 @end

@@ -9,12 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "CompanyClass.h"
 #import "ProductClass.h"
-
+#import "sqlite3.h"
 
 @interface DAO : NSObject
 
 @property (nonatomic, retain) NSMutableArray <CompanyClass*> *companyList;
 
+
 + (instancetype)sharedDAO;
+- (void)copyDatabase;
+- (void)displayCompany;
+- (void)displayProducts;
+- (void)addCompanyToDatabase:(CompanyClass*)newCompany;
+- (void)addProduct:(ProductClass*)product toDatabaseOfCompany:(CompanyClass*)newCompany;
+-(void)deleteCompanyFromDatabase:(int)deleteCompany;
 
 @end

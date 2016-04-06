@@ -32,6 +32,9 @@
 		DA63690F1C9CD8BF004C7460 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA63690E1C9CD8BF004C7460 /* WebKit.framework */; };
 		DA6369121CA0BEA2004C7460 /* CompanyClass.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6369111CA0BEA2004C7460 /* CompanyClass.m */; };
 		DA6369151CA1B350004C7460 /* ProductClass.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6369141CA1B350004C7460 /* ProductClass.m */; };
+		DAAD33C51CAC0E8700F2595C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DAAD33C41CAC0E8700F2595C /* libsqlite3.tbd */; };
+		DAB566931CAF05C300B20028 /* NavCtrl.db in Resources */ = {isa = PBXBuildFile; fileRef = DAB566921CAF05C300B20028 /* NavCtrl.db */; };
+		DAB566951CAF317300B20028 /* logoCompany.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DAB566941CAF317300B20028 /* logoCompany.jpg */; };
 		DAF9F1E71CA2258600266401 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF9F1E61CA2258600266401 /* DAO.m */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +83,9 @@
 		DA6369111CA0BEA2004C7460 /* CompanyClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyClass.m; sourceTree = "<group>"; };
 		DA6369131CA1B350004C7460 /* ProductClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductClass.h; sourceTree = "<group>"; };
 		DA6369141CA1B350004C7460 /* ProductClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductClass.m; sourceTree = "<group>"; };
+		DAAD33C41CAC0E8700F2595C /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		DAB566921CAF05C300B20028 /* NavCtrl.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = NavCtrl.db; sourceTree = "<group>"; };
+		DAB566941CAF317300B20028 /* logoCompany.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logoCompany.jpg; path = ../Images/logoCompany.jpg; sourceTree = "<group>"; };
 		DAF9F1E51CA2258600266401 /* DAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAO.h; sourceTree = "<group>"; };
 		DAF9F1E61CA2258600266401 /* DAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAO.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAAD33C51CAC0E8700F2595C /* libsqlite3.tbd in Frameworks */,
 				DA63690F1C9CD8BF004C7460 /* WebKit.framework in Frameworks */,
 				48A656B718163BF200746D36 /* CoreGraphics.framework in Frameworks */,
 				48A656B918163BF200746D36 /* UIKit.framework in Frameworks */,
@@ -146,6 +153,7 @@
 		48A656A818163BF200746D36 = {
 			isa = PBXGroup;
 			children = (
+				DAB566921CAF05C300B20028 /* NavCtrl.db */,
 				48A656BA18163BF200746D36 /* NavCtrl */,
 				48A656D318163BF200746D36 /* NavCtrlTests */,
 				48A656B318163BF200746D36 /* Frameworks */,
@@ -165,6 +173,7 @@
 		48A656B318163BF200746D36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DAAD33C41CAC0E8700F2595C /* libsqlite3.tbd */,
 				DA63690E1C9CD8BF004C7460 /* WebKit.framework */,
 				48A656B418163BF200746D36 /* Foundation.framework */,
 				48A656B618163BF200746D36 /* CoreGraphics.framework */,
@@ -191,9 +200,10 @@
 			isa = PBXGroup;
 			children = (
 				DA6368FE1C98CBC2004C7460 /* logoApple.png */,
-				DA6368FF1C98CBC2004C7460 /* logoBlackberry.png */,
-				DA6369001C98CBC2004C7460 /* logoHTC.jpg */,
 				DA6369011C98CBC2004C7460 /* logoSamsung.png */,
+				DA6369001C98CBC2004C7460 /* logoHTC.jpg */,
+				DA6368FF1C98CBC2004C7460 /* logoBlackberry.png */,
+				DAB566941CAF317300B20028 /* logoCompany.jpg */,
 				48A656ED1816468000746D36 /* Sunflower.gif */,
 				48A656BC18163BF200746D36 /* NavCtrl-Info.plist */,
 				48A656BD18163BF200746D36 /* InfoPlist.strings */,
@@ -307,11 +317,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAB566931CAF05C300B20028 /* NavCtrl.db in Resources */,
 				48A656EE1816468000746D36 /* Sunflower.gif in Resources */,
 				DA6369051C98CBC2004C7460 /* logoSamsung.png in Resources */,
 				DA6369031C98CBC2004C7460 /* logoBlackberry.png in Resources */,
 				DA6369021C98CBC2004C7460 /* logoApple.png in Resources */,
 				DA63690C1C99ECA8004C7460 /* ProductWebViewController.xib in Resources */,
+				DAB566951CAF317300B20028 /* logoCompany.jpg in Resources */,
 				DA6369041C98CBC2004C7460 /* logoHTC.jpg in Resources */,
 				48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */,
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,

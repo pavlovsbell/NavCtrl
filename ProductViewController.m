@@ -12,6 +12,7 @@
 @interface ProductViewController ()
 
 @property (nonatomic, retain) NSIndexPath *indexPathProperty;
+@property (nonatomic, retain) ProductWebViewController *webViewController;
 
 @end
 
@@ -64,10 +65,10 @@
     UIAlertAction *addProductAction = [UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction *addProduct){
         
         // Turn URL string into URL
-        NSURL *url = [[NSURL alloc] initWithString:alertController.textFields[1].text];
+        NSURL *url = [[[NSURL alloc] initWithString:alertController.textFields[1].text] autorelease];
         
         // Adding a new product; create new product with name and URL
-        ProductClass *newProduct = [[ProductClass alloc] initWithProductName:alertController.textFields[0].text andProductURL:url];
+        ProductClass *newProduct = [[[ProductClass alloc] initWithProductName:alertController.textFields[0].text andProductURL:url] autorelease];
         
         [self.currentCompany.companyProducts addObject:newProduct];
         [self.tableView reloadData];
@@ -118,7 +119,7 @@
     }
     // Each cell displays company logo and product name
     cell.textLabel.text = [[self.currentCompany.companyProducts objectAtIndex:[indexPath row]] productName];
-    cell.imageView.image = self.currentCompany.companyLogo;
+    cell.imageView.image = [UIImage imageNamed:self.currentCompany.companyLogo];
     
     // Long press gesture to edit products
     UILongPressGestureRecognizer *longPressRecognizer;
@@ -189,7 +190,8 @@
         // Delete the row from the data source
         [self.currentCompany.companyProducts removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
+//        [self.sharedDAO deleteData:]
+    }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
@@ -200,7 +202,7 @@
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    NSString *productRow = [[self.currentCompany.companyProducts objectAtIndex:fromIndexPath.row] retain];
+    ProductClass *productRow = [[self.currentCompany.companyProducts objectAtIndex:fromIndexPath.row] retain];
     [self.currentCompany.companyProducts removeObject:productRow];
     [self.currentCompany.companyProducts insertObject:productRow atIndex:toIndexPath.row];
     [productRow release];
@@ -219,15 +221,21 @@
 
 #pragma mark - Table view delegate
 
+- (ProductWebViewController *) webViewController {
+    if (!_webViewController) {
+        _webViewController = [[ProductWebViewController alloc] initWithNibName:@"ProductWebViewController" bundle:nil];
+    }
+    return _webViewController;
+}
+
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Pass the selected object to the new view controller. Can access properties of ProductWebViewController by adding ".urlname"
-    ProductWebViewController *webViewController = [[ProductWebViewController alloc] initWithNibName:@"ProductWebViewController" bundle:nil];
-    webViewController.productURLRequest = [[self.currentCompany.companyProducts objectAtIndex:indexPath.row] productURL];
+    // Pass the selected object to the new view controller
+    self.webViewController.productURLRequest = [[self.currentCompany.companyProducts objectAtIndex:indexPath.row] productURL];
     
     // Push the view controller.
-    [self.navigationController pushViewController:webViewController animated:YES];
+    [self.navigationController pushViewController:self.webViewController animated:YES];
     
 }
  

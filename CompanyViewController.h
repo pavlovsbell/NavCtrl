@@ -19,6 +19,8 @@
 @property (nonatomic, retain) DAO *sharedDAO;
 
 
+
+
 - (void)getStockPrices;
 
 @end

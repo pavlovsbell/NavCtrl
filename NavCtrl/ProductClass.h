@@ -12,6 +12,9 @@
 
 @property (nonatomic, retain) NSString *productName;
 @property (nonatomic, retain) NSURL *productURL;
+@property (nonatomic) int productCompanyID;
+@property (nonatomic) int productID;
+@property (nonatomic) int productIndex;
 
 - (id)initWithProductName:(NSString*)name andProductURL:(NSURL*)url;
 
