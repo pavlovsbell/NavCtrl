@@ -8,6 +8,8 @@
 
 
 #import "DAO.h"
+#import "CompanyMO.h"
+#import "ProductMO.h"
 
 static DAO *myDAO = nil;
 
@@ -54,6 +56,9 @@ static DAO *myDAO = nil;
 - (id)init {
     if (self = [super init]) {
     }
+    
+    [self initializeCoreData];
+    
     return self;
 }
 
@@ -106,16 +111,24 @@ static DAO *myDAO = nil;
                 NSString *company_stockPrice = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4)] autorelease];
                 
                 // Create new instance of company and set company properties to database variables
-                CompanyClass *company = [[[CompanyClass alloc]initWithCompanyName:[company_name copy] andCompanyLogo:nil andCompanyProducts:nil]autorelease];
+                CompanyMO *company = [[NSEntityDescription insertNewObjectForEntityForName:@"CompanyMO" inManagedObjectContext:self.managedObjectContext]autorelease];
                 company.companyLogo = company_logo;
                 company.companyStockPrice = company_stockPrice;
-                company.companyID = company_id;
-                company.companyIndex = company_index;
-                company.companyProducts = [[[NSMutableArray alloc] init] autorelease];
+                company.companyID = [NSNumber numberWithInteger:company_id];
+                company.companyIndex = [NSNumber numberWithInteger:company_index];
+                //company.companyProducts = [[[NSMutableArray alloc] init] autorelease];
                 
                 [company_name release];
                 
                 [self.companyList addObject:company]; // Repopulate list with companies
+                [self.managedObjectContext insertObject:company];
+                
+            }
+            
+            // Save companies to managed object
+            NSError *error = nil;
+            if ([self.managedObjectContext save:&error] == NO) {
+                NSAssert(NO, @"Error saving context: %@\n%@", [error localizedDescription], [error userInfo]);
             }
             
             // Finalize request
@@ -146,7 +159,7 @@ static DAO *myDAO = nil;
     if(sqlite3_open([self.databasePathString UTF8String], &database)== SQLITE_OK){
         
         // Add products to companyProducts arrays
-        for (CompanyClass *company in _companyList) {
+        for (CompanyMO *company in _companyList) {
             
             // Create query to select product data
             NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM Product WHERE company_id = %d", company.companyID];
@@ -163,14 +176,16 @@ static DAO *myDAO = nil;
                     NSString *product_name = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)] autorelease];
                     NSString *product_url = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4)] autorelease];
                     
-                    // Create new instance of product and fill company product array from database
-                    ProductClass *product = [[[ProductClass alloc] init] autorelease];
+                    // Create new product managed object
+                    ProductMO *product = [[NSEntityDescription insertNewObjectForEntityForName:@"ProductMO" inManagedObjectContext:self.managedObjectContext] autorelease];
                     product.productName = product_name;
-                    product.productURL = [NSURL URLWithString:product_url];
-                    product.productCompanyID = company_id;
-                    product.productID = product_id;
-                    product.productIndex = product_index;
-                    [company.companyProducts addObject:product]; // Repopulate each company array with products
+                    product.productURL = product_url;
+                    //product.productCompanyID = company_id;
+                                          //product.productID = product_id;
+                    product.productIndex = [NSNumber numberWithInt:product_index];
+                    //[company.companyProducts addObject:product]; // Repopulate each company array with products
+                    product.soldBy = company;
+                    [self.managedObjectContext insertObject:product];
                 }
             } else {
                 NSAssert(false, @"Error getting Products: %s", sqlite3_errmsg(database));
@@ -184,11 +199,16 @@ static DAO *myDAO = nil;
 
         }
         
+        // Save products to managed object context
+        NSError *error = nil;
+        if ([self.managedObjectContext save:&error] == NO) {
+            NSAssert(NO, @"Error saving context: %@\n%@", [error localizedDescription], [error userInfo]);
+        }
+        
         if (sqlite3_close(database) == SQLITE_OK){
             NSLog(@"Database closed");
         } else {
             NSAssert(false, @"Error finalized db: %s", sqlite3_errmsg(database));
-            
         }
     }
 }
@@ -244,8 +264,6 @@ static DAO *myDAO = nil;
         
         sqlite3_close(database);
     }
-    //NSLog(@"%s,%s", product.productName, newCompany.companyName);
-    
 }
 
 
@@ -276,6 +294,46 @@ static DAO *myDAO = nil;
             break;
         }
     }
+}
+
+                                          
+#pragma mark - Core Data Methods
+
+-(void)initializeCoreData {
+    
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"momd"];
+    
+    // Initialize Managed Object Model
+    NSManagedObjectModel *mom = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    
+    
+    NSAssert(mom != nil, @"Error initializing Managed Object Model");
+    
+    // Initialize Persistent Store Coordinator
+    NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
+    
+    // Initialize Managed Object Context
+    NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    [moc setPersistentStoreCoordinator:psc];
+    self.managedObjectContext = moc;
+    
+    // Create UIManagedDocument
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *documentsURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSURL *storeURL = [documentsURL URLByAppendingPathComponent:@"DataModel.sqlite"];
+    
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        NSError *error = nil;
+        
+        NSPersistentStoreCoordinator *psc = [[self managedObjectContext] persistentStoreCoordinator];
+        NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
+                                 [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+        NSPersistentStore *store = [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error];
+        NSAssert(store != nil, @"Error initializing PSC: %@\n%@", [error localizedDescription], [error userInfo]);
+    });
+
+    NSLog(@"%@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
 }
 
 

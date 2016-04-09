@@ -35,6 +35,11 @@
 		DAAD33C51CAC0E8700F2595C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DAAD33C41CAC0E8700F2595C /* libsqlite3.tbd */; };
 		DAB566931CAF05C300B20028 /* NavCtrl.db in Resources */ = {isa = PBXBuildFile; fileRef = DAB566921CAF05C300B20028 /* NavCtrl.db */; };
 		DAB566951CAF317300B20028 /* logoCompany.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DAB566941CAF317300B20028 /* logoCompany.jpg */; };
+		DAF862451CB5770B0053972F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAF862431CB5770B0053972F /* Model.xcdatamodeld */; };
+		DAF8624E1CB57AFE0053972F /* CompanyMO+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF862471CB57AFE0053972F /* CompanyMO+CoreDataProperties.m */; };
+		DAF8624F1CB57AFE0053972F /* CompanyMO.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF862491CB57AFE0053972F /* CompanyMO.m */; };
+		DAF862501CB57AFE0053972F /* ProductMO+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF8624B1CB57AFE0053972F /* ProductMO+CoreDataProperties.m */; };
+		DAF862511CB57AFE0053972F /* ProductMO.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF8624D1CB57AFE0053972F /* ProductMO.m */; };
 		DAF9F1E71CA2258600266401 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF9F1E61CA2258600266401 /* DAO.m */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +91,15 @@
 		DAAD33C41CAC0E8700F2595C /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		DAB566921CAF05C300B20028 /* NavCtrl.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = NavCtrl.db; sourceTree = "<group>"; };
 		DAB566941CAF317300B20028 /* logoCompany.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logoCompany.jpg; path = ../Images/logoCompany.jpg; sourceTree = "<group>"; };
+		DAF862441CB5770B0053972F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		DAF862461CB57AFE0053972F /* CompanyMO+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CompanyMO+CoreDataProperties.h"; sourceTree = "<group>"; };
+		DAF862471CB57AFE0053972F /* CompanyMO+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CompanyMO+CoreDataProperties.m"; sourceTree = "<group>"; };
+		DAF862481CB57AFE0053972F /* CompanyMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyMO.h; sourceTree = "<group>"; };
+		DAF862491CB57AFE0053972F /* CompanyMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyMO.m; sourceTree = "<group>"; };
+		DAF8624A1CB57AFE0053972F /* ProductMO+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ProductMO+CoreDataProperties.h"; sourceTree = "<group>"; };
+		DAF8624B1CB57AFE0053972F /* ProductMO+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ProductMO+CoreDataProperties.m"; sourceTree = "<group>"; };
+		DAF8624C1CB57AFE0053972F /* ProductMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductMO.h; sourceTree = "<group>"; };
+		DAF8624D1CB57AFE0053972F /* ProductMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductMO.m; sourceTree = "<group>"; };
 		DAF9F1E51CA2258600266401 /* DAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAO.h; sourceTree = "<group>"; };
 		DAF9F1E61CA2258600266401 /* DAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAO.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,6 +167,15 @@
 		48A656A818163BF200746D36 = {
 			isa = PBXGroup;
 			children = (
+				DAF862461CB57AFE0053972F /* CompanyMO+CoreDataProperties.h */,
+				DAF862471CB57AFE0053972F /* CompanyMO+CoreDataProperties.m */,
+				DAF862481CB57AFE0053972F /* CompanyMO.h */,
+				DAF862491CB57AFE0053972F /* CompanyMO.m */,
+				DAF8624A1CB57AFE0053972F /* ProductMO+CoreDataProperties.h */,
+				DAF8624B1CB57AFE0053972F /* ProductMO+CoreDataProperties.m */,
+				DAF8624C1CB57AFE0053972F /* ProductMO.h */,
+				DAF8624D1CB57AFE0053972F /* ProductMO.m */,
+				DAF862431CB5770B0053972F /* Model.xcdatamodeld */,
 				DAB566921CAF05C300B20028 /* NavCtrl.db */,
 				48A656BA18163BF200746D36 /* NavCtrl */,
 				48A656D318163BF200746D36 /* NavCtrlTests */,
@@ -347,11 +370,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */,
+				DAF8624E1CB57AFE0053972F /* CompanyMO+CoreDataProperties.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
 				DA6369151CA1B350004C7460 /* ProductClass.m in Sources */,
 				DA63690B1C99ECA8004C7460 /* ProductWebViewController.m in Sources */,
 				DAF9F1E71CA2258600266401 /* DAO.m in Sources */,
+				DAF862451CB5770B0053972F /* Model.xcdatamodeld in Sources */,
+				DAF8624F1CB57AFE0053972F /* CompanyMO.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
+				DAF862511CB57AFE0053972F /* ProductMO.m in Sources */,
+				DAF862501CB57AFE0053972F /* ProductMO+CoreDataProperties.m in Sources */,
 				DA6369121CA0BEA2004C7460 /* CompanyClass.m in Sources */,
 				48A656EB18163F8700746D36 /* ProductViewController.m in Sources */,
 			);
@@ -571,6 +599,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DAF862431CB5770B0053972F /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DAF862441CB5770B0053972F /* Model.xcdatamodel */,
+			);
+			currentVersion = DAF862441CB5770B0053972F /* Model.xcdatamodel */;
+			name = Model.xcdatamodeld;
+			path = NavCtrl/Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 48A656A918163BF200746D36 /* Project object */;
 }

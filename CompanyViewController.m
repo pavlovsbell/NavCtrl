@@ -8,6 +8,7 @@
 
 #import "CompanyViewController.h"
 #import "ProductViewController.h"
+#import "CompanyMO.h"
 
 @interface CompanyViewController ()
 
@@ -88,8 +89,8 @@
         
         // Loop through stockQuotes adding companyStockPrice for each
         for (int i = 0; i < self.sharedDAO.companyList.count; i++) {
-            [self.sharedDAO.companyList objectAtIndex:i].companyStockPrice = [stockQuotes objectAtIndex:i];
-            NSLog(@"Stock price for %@ is %@",[self.sharedDAO.companyList objectAtIndex:i].companyName,[self.sharedDAO.companyList objectAtIndex:i].companyStockPrice);
+//            [self.sharedDAO.companyList objectAtIndex:i].companyStockPrice = [stockQuotes objectAtIndex:i];
+//            NSLog(@"Stock price for %@ is %@",[self.sharedDAO.companyList objectAtIndex:i].companyName,[self.sharedDAO.companyList objectAtIndex:i].companyStockPrice);
         }
         
         // Since we are in a block, must dispatch to get back to the main queue
@@ -155,7 +156,7 @@
                 NSURL *url = [[NSURL alloc] initWithString:@"https://www.google.com/"];
                 product.productURL = url;
                 product.productIndex = newCompany.companyProducts.count;
-                product.productCompanyID = [self.sharedDAO.companyList objectAtIndex:self.sharedDAO.companyList.count - 1].companyID;
+//                product.productCompanyID = [self.sharedDAO.companyList objectAtIndex:self.sharedDAO.companyList.count - 1].companyID;
 //                [newCompany.companyProducts addObject:product];
                 [self.sharedDAO addProduct:product toDatabaseOfCompany:newCompany];
                 [url release];
@@ -202,9 +203,10 @@
     
 
     // Each cell displays the company logo and company name
-    cell.imageView.image = [UIImage imageNamed:[[self.sharedDAO.companyList objectAtIndex:[indexPath row]] companyLogo]];
-    cell.textLabel.text = [[self.sharedDAO.companyList objectAtIndex:[indexPath row]] companyName];
-    cell.detailTextLabel.text = [[self.sharedDAO.companyList objectAtIndex:[indexPath row]] companyStockPrice];
+    CompanyMO *company = [self.sharedDAO.companyList objectAtIndex:indexPath.row];
+    cell.imageView.image = [UIImage imageNamed:company.companyLogo];
+    cell.textLabel.text = company.companyName;
+    cell.detailTextLabel.text = company.companyStockPrice;
     
     // Long press gesture to edit company
     UILongPressGestureRecognizer *longPressRecognizer;
@@ -233,7 +235,7 @@
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *cancel){
     }];
     UIAlertAction *saveCompanyDetails = [UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction *saveProductDetails){
-        [self.sharedDAO.companyList objectAtIndex:currentIndexPath.row].companyName = alertController.textFields[0].text;
+//        [self.sharedDAO.companyList objectAtIndex:currentIndexPath.row].companyName = alertController.textFields[0].text;
         [self.tableView reloadData];
     }];
     

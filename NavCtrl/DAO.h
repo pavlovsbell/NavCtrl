@@ -7,13 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "CompanyClass.h"
 #import "ProductClass.h"
 #import "sqlite3.h"
 
 @interface DAO : NSObject
 
-@property (nonatomic, retain) NSMutableArray <CompanyClass*> *companyList;
+@property (nonatomic, retain) NSMutableArray *companyList;
+
+
+@property (strong) NSManagedObjectContext *managedObjectContext; //CoreData
+
+
+-(void)initializeCoreData; //CoreData
+
 
 
 + (instancetype)sharedDAO;

@@ -10,6 +10,7 @@
 //
 
 #import "CompanyMO.h"
+#import "ProductMO.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
