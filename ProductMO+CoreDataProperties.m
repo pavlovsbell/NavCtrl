@@ -2,7 +2,7 @@
 //  ProductMO+CoreDataProperties.m
 //  NavCtrl
 //
-//  Created by Julianne on 4/8/16.
+//  Created by Julianne on 4/12/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -16,6 +16,7 @@
 @dynamic productIndex;
 @dynamic productName;
 @dynamic productURL;
+@dynamic productID;
 @dynamic soldBy;
 
 @end

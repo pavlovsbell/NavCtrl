@@ -2,7 +2,7 @@
 //  CompanyMO+CoreDataProperties.h
 //  NavCtrl
 //
-//  Created by Julianne on 4/8/16.
+//  Created by Julianne on 4/13/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -19,8 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSNumber *companyIndex;
 @property (nullable, nonatomic, retain) NSString *companyLogo;
 @property (nullable, nonatomic, retain) NSString *companyName;
-@property (nullable, nonatomic, retain) NSString *companyProducts;
-@property (nullable, nonatomic, retain) NSString *companyStockPrice;
+@property (nullable, nonatomic, retain) NSString *companyStockSymbol;
 @property (nullable, nonatomic, retain) NSNumber *companyID;
 @property (nullable, nonatomic, retain) NSSet<ProductMO *> *products;
 

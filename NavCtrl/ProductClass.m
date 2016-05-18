@@ -10,12 +10,18 @@
 
 @implementation ProductClass
 
-- (id)initWithProductName:(NSString*)name andProductURL:(NSURL*)url {
+- (id)initWithProductName:(NSString*)name andProductURL:(NSURL*)url andProductIndex:(NSUInteger)index andProductID:(NSUInteger)ID {
     
     self = [super init];
     if (self) {
-        self.productName = name;
-        self.productURL = url;
+        _productName = name;
+        [_productName retain];
+        _productURL = url;
+        [_productURL = url retain];
+        
+        _urlString = _productURL.absoluteString;
+        _productIndex = index;
+        _productID = ID;
     }
     return(self);
 }

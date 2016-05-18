@@ -2,7 +2,7 @@
 //  ProductMO+CoreDataProperties.h
 //  NavCtrl
 //
-//  Created by Julianne on 4/8/16.
+//  Created by Julianne on 4/12/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSNumber *productIndex;
 @property (nullable, nonatomic, retain) NSString *productName;
 @property (nullable, nonatomic, retain) NSString *productURL;
+@property (nullable, nonatomic, retain) NSNumber *productID;
 @property (nullable, nonatomic, retain) CompanyMO *soldBy;
 
 @end

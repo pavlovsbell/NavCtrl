@@ -17,8 +17,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+}
 
-    NSURLRequest *nsrequest=[NSURLRequest requestWithURL:self.productURLRequest];
+- (void)viewWillAppear:(BOOL)animated {
+
+    NSURLRequest *nsrequest=[NSURLRequest requestWithURL:self.url];
     [self.webView loadRequest:nsrequest];
 
 }

@@ -13,11 +13,12 @@
 
 @property (nonatomic, retain) NSString *companyName;
 @property (nonatomic, retain) NSString *companyLogo;
-@property (nonatomic, retain) NSString *companyStockPrice;
-@property (nonatomic, retain) NSMutableArray <ProductClass*> *companyProducts;
-@property (nonatomic) int companyID;
-@property (nonatomic) int companyIndex;
+@property (nonatomic, retain) NSString *companyStockSymbol;
+@property (nonatomic, retain) NSString *companyStockQuote;
+@property (nonatomic, retain) NSMutableArray *companyProducts;
+@property (nonatomic) NSUInteger companyID;
+@property (nonatomic) NSUInteger companyIndex;
 
-- (id)initWithCompanyName:(NSString*)name andCompanyLogo:(UIImage*)logo andCompanyProducts:(NSMutableArray*)products;
+- (id)initWithCompanyName:(NSString*)name andCompanyLogo:(NSString*)logo andCompanyProducts:(NSMutableArray*)products andCompanyStockSymbol:(NSString*)symbol andCompanyIndex:(NSUInteger)index andCompanyID:(NSUInteger)ID;
 
 @end

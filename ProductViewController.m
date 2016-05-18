@@ -32,8 +32,6 @@
     [super viewDidLoad];
     // Uncomment the following line to preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     // Button to add a product
     UIBarButtonItem *addProductButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addProduct)];
@@ -68,7 +66,7 @@
         NSURL *url = [[[NSURL alloc] initWithString:alertController.textFields[1].text] autorelease];
         
         // Adding a new product; create new product with name and URL
-        ProductClass *newProduct = [[[ProductClass alloc] initWithProductName:alertController.textFields[0].text andProductURL:url] autorelease];
+        ProductClass *newProduct = [[[ProductClass alloc] initWithProductName:alertController.textFields[0].text andProductURL:url andProductIndex:self.currentCompany.companyProducts.count andProductID:self.currentCompany.companyProducts.count + 1] autorelease];
         
         [self.currentCompany.companyProducts addObject:newProduct];
         [self.tableView reloadData];
@@ -110,8 +108,7 @@
     
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -155,14 +152,16 @@
     }];
 
     // Alert buttons
+    ProductClass *currentProduct = [self.currentCompany.companyProducts objectAtIndex:currentIndexPath.row];
+    
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *cancel){
     }];
     UIAlertAction *saveProductDetails = [UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction *saveProductDetails){
-        [self.currentCompany.companyProducts objectAtIndex:currentIndexPath.row].productName = alertController.textFields[0].text;
+        currentProduct.productName = alertController.textFields[0].text;
         
         // Turn URL string into URL
         NSURL *url = [[NSURL alloc] initWithString:alertController.textFields[1].text];
-        [self.currentCompany.companyProducts objectAtIndex:currentIndexPath.row].productURL = url;
+        currentProduct.productURL = url;
         [self.tableView reloadData];
      }];
         
@@ -172,7 +171,7 @@
         // Make alert pop up when button pressed
         [self presentViewController:alertController animated:YES completion:nil];
 }
-                                       
+
 // Override to support conditional editing of the table view.
 // Deleting products and companies - return YES
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -205,7 +204,7 @@
     ProductClass *productRow = [[self.currentCompany.companyProducts objectAtIndex:fromIndexPath.row] retain];
     [self.currentCompany.companyProducts removeObject:productRow];
     [self.currentCompany.companyProducts insertObject:productRow atIndex:toIndexPath.row];
-    [productRow release];
+   // [productRow release];
 }
 
 
@@ -221,18 +220,21 @@
 
 #pragma mark - Table view delegate
 
-- (ProductWebViewController *) webViewController {
-    if (!_webViewController) {
-        _webViewController = [[ProductWebViewController alloc] initWithNibName:@"ProductWebViewController" bundle:nil];
-    }
-    return _webViewController;
-}
+//- (ProductWebViewController *) webViewController {
+//    if (!_webViewController) {
+//        _webViewController = [[ProductWebViewController alloc] initWithNibName:@"ProductWebViewController" bundle:nil];
+//    }
+//    return _webViewController;
+//}
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.webViewController = [[ProductWebViewController alloc] initWithNibName:@"ProductWebViewController" bundle:nil];
+    ProductClass *currentProduct =[self.currentCompany.companyProducts objectAtIndex:indexPath.row];
     // Pass the selected object to the new view controller
-    self.webViewController.productURLRequest = [[self.currentCompany.companyProducts objectAtIndex:indexPath.row] productURL];
+    self.webViewController.url = [NSURL URLWithString:currentProduct.urlString];
+//    self.webViewController.urlString = currentProduct.productURL.absoluteString;
     
     // Push the view controller.
     [self.navigationController pushViewController:self.webViewController animated:YES];

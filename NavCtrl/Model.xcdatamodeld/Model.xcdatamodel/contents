@@ -5,18 +5,18 @@
         <attribute name="companyIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="companyLogo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="companyName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="companyProducts" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="companyStockPrice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="companyStockSymbol" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProductMO" inverseName="soldBy" inverseEntity="ProductMO" syncable="YES"/>
     </entity>
     <entity name="ProductMO" representedClassName="ProductMO" syncable="YES">
+        <attribute name="productID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="productIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="productName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productURL" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="soldBy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CompanyMO" inverseName="products" inverseEntity="CompanyMO" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CompanyMO" positionX="-351" positionY="9" width="128" height="150"/>
-        <element name="ProductMO" positionX="-36" positionY="9" width="128" height="103"/>
+        <element name="CompanyMO" positionX="-351" positionY="9" width="128" height="135"/>
+        <element name="ProductMO" positionX="-36" positionY="9" width="128" height="120"/>
     </elements>
 </model>

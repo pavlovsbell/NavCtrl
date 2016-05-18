@@ -15,24 +15,24 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+    
     // Override point for customization after application launch.
     UIViewController *rootController =
     [[[CompanyViewController alloc]
      initWithNibName:@"CompanyViewController" bundle:nil] autorelease];
+
+//    CompanyViewController *rootController = [[CompanyViewController alloc] init];
     
     self.navigationController = [[[UINavigationController alloc]
-                            initWithRootViewController:rootController] autorelease];
-    
+                                  initWithRootViewController:rootController] autorelease];
+
     self.window = [[[UIWindow alloc]
                    initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 //  self.window addSubview:self.navigationController.view];
     [self.window setRootViewController:self.navigationController];
     [self.window makeKeyAndVisible];
     
-    DAO *sharedDAO = [DAO sharedDAO];
-    [sharedDAO copyDatabase];
-    [sharedDAO displayCompany];
-    [sharedDAO displayProducts];
+    __unused DAO *sharedDAO = [DAO sharedDAO];
     return YES;
     
     /*

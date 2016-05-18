@@ -15,11 +15,7 @@ static DAO *myDAO = nil;
 
 
 @interface DAO ()
-{
-    sqlite3 *database;
-}
 
-@property (strong, nonatomic) NSString *databasePathString;
 
 @end
 
@@ -30,7 +26,7 @@ static DAO *myDAO = nil;
 + (instancetype)sharedDAO {
     @synchronized(self) {
         if(myDAO == nil)
-            myDAO = [[[super allocWithZone:NULL] init] autorelease];
+            myDAO = [[super allocWithZone:NULL] init];
         
     }
     return myDAO;
@@ -53,253 +49,82 @@ static DAO *myDAO = nil;
 - (id)autorelease {
     return self;
 }
+
+- (void)dealloc {
+    // Should never be called, but just here for clarity really.
+    [super dealloc];
+}
 - (id)init {
+    
+    
     if (self = [super init]) {
+
+        [self initializeCoreData];
+
+        // Check to see if data is saved in Core Data
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CompanyMO"];
+        NSError *error = nil;
+        NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+        
+        // If it's not there, the app should create the data using hard coded values and save it to Core Data
+        if (!results || results.count == 0) {
+            NSLog(@"Error fetching Company objects: %@\n%@", [error localizedDescription], [error userInfo]);
+            [self loadDataIfNotExisting];
+        }
+        else {
+            // Convert company managed objects to company classes
+            [self createCompanyClassFrom:results];
+        }
     }
     
-    [self initializeCoreData];
+    // Save companies to managed object context
+    [self saveCoreData];
     
     return self;
 }
 
-
-#pragma mark Database Methods
-- (void)copyDatabase {
-    // Get path to current document/project and add database to it
-    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentPath = [path objectAtIndex:0];
-    self.databasePathString = [documentPath stringByAppendingPathComponent:@"NavCtrl.db"];
-    NSFileManager *fileManager = [NSFileManager defaultManager]; // Create fileManager for manipulating files
-    
-    // Check to see if the database exists in the documents directory
-    if (![fileManager fileExistsAtPath:self.databasePathString]) {
-        // If database is not there, copy it from the bundle to the documents directory
-        NSError *error = nil;
-        NSString *bundleDBPath = [[[NSBundle mainBundle]resourcePath] stringByAppendingPathComponent:@"NavCtrl.db"];
-        [fileManager copyItemAtPath:bundleDBPath toPath:self.databasePathString error:&error];
-    }
-    else
-    {
-        NSLog(@"Database exists");
-    }
-    
-    // Initialize and allocate space for companyList; new = alloc,init
-    self.companyList = [[NSMutableArray new] autorelease];
-}
-
-- (void)displayCompany {
-    // All SQL must be converted into a prepared statement before it can be run
-    sqlite3_stmt *statement;
-    
-    // Open database to access it; Check if successfully opened
-    if (sqlite3_open([self.databasePathString UTF8String], &database) == SQLITE_OK) {
-        [self.companyList removeAllObjects]; // Delete all data from company list
-        NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM Company"]; // Create query to select all company data to repopulate list
-        const char *query_sql = [querySQL UTF8String]; // Convert an NSString to C string
-        
-        if (sqlite3_prepare_v2(database, query_sql, -1, &statement, NULL) == SQLITE_OK) // Run query through database
-        {
-            while (sqlite3_step(statement)== SQLITE_ROW) // While there are rows, SQL will be converted to a statement
-            {
-                // Have each database variable correspond to columns in the database
-                NSString *companyId = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 0)] autorelease];
-                int company_id = companyId.intValue;
-                NSString *companyInDex = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)] autorelease];
-                int company_index = companyInDex.intValue;
-                NSString *company_name = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
-                NSString *company_logo = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)] autorelease];
-                NSString *company_stockPrice = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4)] autorelease];
-                
-                // Create new instance of company and set company properties to database variables
-                CompanyMO *company = [[NSEntityDescription insertNewObjectForEntityForName:@"CompanyMO" inManagedObjectContext:self.managedObjectContext]autorelease];
-                company.companyLogo = company_logo;
-                company.companyStockPrice = company_stockPrice;
-                company.companyID = [NSNumber numberWithInteger:company_id];
-                company.companyIndex = [NSNumber numberWithInteger:company_index];
-                //company.companyProducts = [[[NSMutableArray alloc] init] autorelease];
-                
-                [company_name release];
-                
-                [self.companyList addObject:company]; // Repopulate list with companies
-                [self.managedObjectContext insertObject:company];
-                
-            }
-            
-            // Save companies to managed object
-            NSError *error = nil;
-            if ([self.managedObjectContext save:&error] == NO) {
-                NSAssert(NO, @"Error saving context: %@\n%@", [error localizedDescription], [error userInfo]);
-            }
-            
-            // Finalize request
-            if (sqlite3_finalize(statement) == SQLITE_OK){
-                NSLog(@"Database closed");
-            } else {
-                NSAssert(false, @"Error finalized db: %s", sqlite3_errmsg(database));
-                
-            }
-        }
-        else {
-            NSAssert(false, @"Error getting Company Table: %s", sqlite3_errmsg(database));
-        }
-        
-    // Close database
-    if (sqlite3_close(database) == SQLITE_OK){
-        NSLog(@"Database closed");
-    } else {
-        NSAssert(false, @"Error closing db: %s", sqlite3_errmsg(database));
-    }
-    }
-}
-
-- (void)displayProducts {
-    // All SQL must be converted into a prepared statement before it can be run
-    sqlite3_stmt *statement;
-    
-    if(sqlite3_open([self.databasePathString UTF8String], &database)== SQLITE_OK){
-        
-        // Add products to companyProducts arrays
-        for (CompanyMO *company in _companyList) {
-            
-            // Create query to select product data
-            NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM Product WHERE company_id = %d", company.companyID];
-            const char *query_sql = [querySQL UTF8String]; // Convert an NSString to C string
-            
-            if (sqlite3_prepare_v2(database, query_sql, -1, &statement, NULL) == SQLITE_OK) // Run query through database
-            {
-                while (sqlite3_step(statement) == SQLITE_ROW) // While there are rows, SQL will be converted to a statement
-                {
-                    // Have each variable correspond to columns in the database
-                    int company_id = (int)sqlite3_column_text(statement, 0);
-                    int product_id = (int)sqlite3_column_text(statement, 1);
-                    int product_index = (int)sqlite3_column_text(statement, 2);
-                    NSString *product_name = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)] autorelease];
-                    NSString *product_url = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4)] autorelease];
-                    
-                    // Create new product managed object
-                    ProductMO *product = [[NSEntityDescription insertNewObjectForEntityForName:@"ProductMO" inManagedObjectContext:self.managedObjectContext] autorelease];
-                    product.productName = product_name;
-                    product.productURL = product_url;
-                    //product.productCompanyID = company_id;
-                                          //product.productID = product_id;
-                    product.productIndex = [NSNumber numberWithInt:product_index];
-                    //[company.companyProducts addObject:product]; // Repopulate each company array with products
-                    product.soldBy = company;
-                    [self.managedObjectContext insertObject:product];
-                }
-            } else {
-                NSAssert(false, @"Error getting Products: %s", sqlite3_errmsg(database));
-            }
-            if (sqlite3_finalize(statement) == SQLITE_OK){
-                NSLog(@"Database closed");
-                statement = nil;
-            } else {
-                NSAssert(false, @"Error finalized db: %s", sqlite3_errmsg(database));
-            }
-
-        }
-        
-        // Save products to managed object context
-        NSError *error = nil;
-        if ([self.managedObjectContext save:&error] == NO) {
-            NSAssert(NO, @"Error saving context: %@\n%@", [error localizedDescription], [error userInfo]);
-        }
-        
-        if (sqlite3_close(database) == SQLITE_OK){
-            NSLog(@"Database closed");
-        } else {
-            NSAssert(false, @"Error finalized db: %s", sqlite3_errmsg(database));
-        }
-    }
-}
-
-- (void)addCompanyToDatabase:(CompanyClass*)newCompany {
-    
-    // Add new company to companyList
-    [self.companyList addObject:newCompany];
-    
-    // Modify database to make added company permanent
-    char *error; // SQL error in char variable
-    if(sqlite3_open([self.databasePathString UTF8String], &database) == SQLITE_OK) // Open database to access it
-    {
-        
-        NSString *insertStmt = [NSString stringWithFormat:@"INSERT INTO Company (company_name, company_logo, company_index, company_stockPrice) VALUES ('%@','%@','%d','%@')",newCompany.companyName,newCompany.companyLogo,newCompany.companyIndex,newCompany.companyStockPrice]; // Query to add company to database
-        const char *insert_stmt = [insertStmt UTF8String]; // NSString to C string conversion
-
-        if (sqlite3_exec(database, insert_stmt, NULL, NULL, &error) == SQLITE_OK) // Execute query to add company to database
-        {
-            NSLog(@"Company added to DB");
-            UIAlertView *alert = [[[UIAlertView alloc]initWithTitle:@"Add Company Complete" message:@"Company added to database" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil] autorelease];
-            [alert show]; // Alert confirming company was added to database
-
-        } else{
-            NSLog(@"%s", error);
-        }
-            
-        sqlite3_close(database);
-        
-        [self displayCompany];
-    }
-}
-
-
-- (void)addProduct:(ProductClass*)product toDatabaseOfCompany:(CompanyClass*)newCompany {
-
-    // Add new product to company products array
-    [newCompany.companyProducts addObject:product];
-    
-    // Modify database to make added product permanent
-    char* error;
-    if(sqlite3_open([self.databasePathString UTF8String], &database) == SQLITE_OK) {
-        
-        NSString *insertStmt = [NSString stringWithFormat:@"INSERT INTO Product (product_name, product_url, company_id, product_index) VALUES ('%@','%@','%d','%d')", product.productName, [product.productURL absoluteString], product.productCompanyID, product.productIndex];
-        const char *insert_stmt = [insertStmt UTF8String];
-        
-        if (sqlite3_exec(database, insert_stmt, NULL, NULL, &error) == SQLITE_OK)
-        {
-            NSLog(@"Product added to DB");
-        } else {
-            NSLog(@"%s", error);
-        }
-        
-        sqlite3_close(database);
-    }
-}
-
-
--(void)deleteCompanyFromDatabase:(int)deleteCompany
-{
-    char *error; // Errors for sqlite are in char form
-
-    NSString *deleteQuery = [NSString stringWithFormat:@"DELETE FROM Company WHERE id IS '%d'", deleteCompany];
-    NSLog(@"delete company = %d",deleteCompany);
-    
-    if(sqlite3_open([self.databasePathString UTF8String], &database)== SQLITE_OK){
-    
-    // Delete product
-    if (sqlite3_exec(database, [deleteQuery UTF8String], NULL, NULL, &error) == SQLITE_OK)
-    {
-        NSLog(@"Company Deleted");
-        UIAlertView *alert = [[[UIAlertView alloc]initWithTitle:@"Delete" message:@"Company Deleted" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil] autorelease];
-        [alert show];
-    } else {
-        NSLog(@"Error %s",error);
-    }
-       sqlite3_close(database);
-        
-    }
-    for (int i = 0; i < self.companyList.count; i++) {
-        if ([self.companyList[i] companyID] == deleteCompany) {
-            [self.companyList removeObjectAtIndex:i];
-            break;
-        }
-    }
-}
-
-                                          
 #pragma mark - Core Data Methods
-
--(void)initializeCoreData {
+- (void)loadDataIfNotExisting {
+    
+    // Create all products - hard coded values
+    ProductClass *appleIpad = [[[ProductClass alloc] initWithProductName:@"iPad" andProductURL:[NSURL URLWithString:@"http://www.apple.com/ipad/"] andProductIndex:0 andProductID:1] autorelease];
+    
+    ProductClass *appleIpod = [[[ProductClass alloc] initWithProductName:@"iPod" andProductURL:[NSURL URLWithString:@"http://www.apple.com/ipod/"] andProductIndex:1 andProductID:2] autorelease];
+    
+    ProductClass *appleIphone = [[[ProductClass alloc] initWithProductName:@"iPhone" andProductURL:[NSURL URLWithString:@"http://www.apple.com/iphone/"] andProductIndex:2 andProductID:3] autorelease];
+    
+    ProductClass *samsungS4 = [[[ProductClass alloc] initWithProductName:@"Galaxy S4" andProductURL:[NSURL URLWithString:@"http://www.samsung.com/global/galaxy/"] andProductIndex:0 andProductID:4] autorelease];
+    ProductClass *samsungNote = [[[ProductClass alloc] initWithProductName:@"Galaxy Note" andProductURL:[NSURL URLWithString:@"http://www.samsung.com/global/galaxy/galaxy-note5/"] andProductIndex:1 andProductID:5] autorelease];
+    ProductClass *samsungTab = [[[ProductClass alloc] initWithProductName:@"Galaxy Tab" andProductURL:[NSURL URLWithString:@"http://www.samsung.com/us/mobile/galaxy-tab/"] andProductIndex:2 andProductID:6] autorelease];
+    
+    ProductClass *htcOne = [[[ProductClass alloc] initWithProductName:@"HTC One" andProductURL:[NSURL URLWithString:@"http://www.htc.com/us/smartphones/htc-one-m8/"] andProductIndex:0 andProductID:7] autorelease];
+    ProductClass *htcNexus = [[[ProductClass alloc] initWithProductName:@"HTC Nexus" andProductURL:[NSURL URLWithString:@"http://www.htc.com/us/tablets/nexus-9/"] andProductIndex:1 andProductID:8] autorelease];
+    ProductClass *htcDesire = [[[ProductClass alloc] initWithProductName:@"HTC Desire" andProductURL:[NSURL URLWithString:@"http://www.htc.com/us/smartphones/htc-desire-626/"] andProductIndex:2 andProductID:9] autorelease];
+    
+    ProductClass *blackberryClassic = [[[ProductClass alloc] initWithProductName:@"Blackberry Classic" andProductURL:[NSURL URLWithString:@"http://us.blackberry.com/smartphones/blackberry-classic/overview.html"] andProductIndex:0 andProductID:10] autorelease];
+    ProductClass *blackberryPassport = [[[ProductClass alloc] initWithProductName:@"Blackberry Passport" andProductURL:[NSURL URLWithString:@"http://us.blackberry.com/smartphones/blackberry-passport/overview.html"] andProductIndex:1 andProductID:11] autorelease];
+    ProductClass *blackberryPriv = [[[ProductClass alloc] initWithProductName:@"Blackberry Priv" andProductURL:[NSURL URLWithString:@"http://us.blackberry.com/smartphones/priv-by-blackberry/overview.html"] andProductIndex:2 andProductID:12] autorelease];
+    
+    // Create product arrays
+    NSMutableArray *appleProducts = [[NSMutableArray alloc] initWithObjects:appleIpad, appleIpod, appleIphone, nil];
+    NSMutableArray *samsungProducts = [[NSMutableArray alloc] initWithObjects:samsungS4, samsungNote, samsungTab, nil];
+    NSMutableArray *htcProducts = [[NSMutableArray alloc] initWithObjects:htcOne, htcNexus, htcDesire, nil];
+    NSMutableArray *blackberryProducts = [[NSMutableArray alloc] initWithObjects:blackberryClassic, blackberryPassport, blackberryPriv, nil];
+    
+    // Create companies (each with name, logo and a product array)
+    CompanyClass *apple = [[[CompanyClass alloc] initWithCompanyName:@"Apple mobile devices" andCompanyLogo:@"logoApple.png" andCompanyProducts:appleProducts andCompanyStockSymbol:@"AAPL" andCompanyIndex:0 andCompanyID:1] autorelease];
+    CompanyClass *samsung = [[[CompanyClass alloc] initWithCompanyName:@"Samsung mobile devices" andCompanyLogo:@"logoSamsung.png" andCompanyProducts:samsungProducts andCompanyStockSymbol:@"005930.KS" andCompanyIndex:1 andCompanyID:2] autorelease];
+    CompanyClass *htc = [[[CompanyClass alloc] initWithCompanyName:@"HTC mobile devices" andCompanyLogo:@"logoHTC.jpg" andCompanyProducts:htcProducts andCompanyStockSymbol:@"2498.TW" andCompanyIndex:2 andCompanyID:3] autorelease];
+    CompanyClass *blackberry = [[[CompanyClass alloc] initWithCompanyName:@"Blackberry mobile devices" andCompanyLogo:@"logoBlackberry.png" andCompanyProducts:blackberryProducts andCompanyStockSymbol:@"BBRY" andCompanyIndex:3 andCompanyID:4] autorelease];
+    
+    // Put all companies in an array
+    self.companyList = [[NSMutableArray alloc] initWithObjects:apple, samsung, htc, blackberry, nil];
+    
+    for (CompanyClass *companyFromList in self.companyList){
+        [self createCompanyMOfrom:companyFromList];
+    }
+}
+- (void)initializeCoreData {
     
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"momd"];
     
@@ -327,19 +152,208 @@ static DAO *myDAO = nil;
         
         NSPersistentStoreCoordinator *psc = [[self managedObjectContext] persistentStoreCoordinator];
         NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 NSSQLitePragmasOption, @{@"journal_mode":@"DELETE"},
                                  [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
                                  [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
         NSPersistentStore *store = [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error];
         NSAssert(store != nil, @"Error initializing PSC: %@\n%@", [error localizedDescription], [error userInfo]);
     });
-
+    
     NSLog(@"%@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
+}
+- (void)saveCoreData {
+    if (self.managedObjectContext.hasChanges) {
+        NSError *error = nil;
+        if ([self.managedObjectContext save:&error] == NO) {
+            NSAssert(NO, @"Error saving context: %@\n%@", [error localizedDescription], [error userInfo]);
+        }
+    }
+}
+
+#pragma mark - Create - Core Data Methods
+
+- (void)createCompanyMOfrom:(CompanyClass*)companyClass {
+    
+    // Create temp company managed object
+    CompanyMO *company = [[NSEntityDescription insertNewObjectForEntityForName:@"CompanyMO" inManagedObjectContext:self.managedObjectContext] autorelease];
+    
+    // Set attributes to company managed object
+    company.companyLogo = companyClass.companyLogo;
+    company.companyName = companyClass.companyName;
+    company.companyIndex = [NSNumber numberWithInteger:companyClass.companyIndex];
+    company.companyID = [NSNumber numberWithInteger:companyClass.companyID];
+    
+    if (!companyClass.companyStockSymbol){
+        companyClass.companyStockSymbol = @"TTT";
+    }
+    company.companyStockSymbol = companyClass.companyStockSymbol;
+    
+    // Turn ProductClass products into product managed objects
+    NSMutableArray *productsArray = [[[NSMutableArray alloc] init] autorelease];
+    [self addProductsToCoreData:productsArray forCompany:company];
+//    for (ProductClass *productInArray in companyClass.companyProducts) {
+//        [self createProductMOFrom:productInArray ofCompany:company];
+//        [productsArray addObject:productInArray];
+//    }
+    // Add company to managed object context
+    [self.managedObjectContext insertObject:company];
+}
+- (void)createProductMOFrom:(ProductClass*)productClass ofCompany:(CompanyMO*)company {
+    
+    ProductMO *product = [[NSEntityDescription insertNewObjectForEntityForName:@"ProductMO" inManagedObjectContext:self.managedObjectContext] autorelease];
+    product.productURL = [productClass.productURL absoluteString];
+    product.productName = productClass.productName;
+    product.productIndex = [NSNumber numberWithInteger:productClass.productIndex];
+    product.soldBy = company;
+    [self.managedObjectContext insertObject:product];
+}
+
+- (void)addCompanyToCoreData:(CompanyClass*)newCompany {
+    [self createCompanyMOfrom:newCompany];
+    [self saveCoreData];
+}
+- (void)addProductsToCoreData:(NSMutableArray*)productArray forCompany:(CompanyMO*)company {
+    
+    for (ProductClass *product in productArray) {
+        [self createProductMOFrom:product ofCompany:company];
+    }
+    [self saveCoreData];
 }
 
 
-- (void)dealloc {
-    // Should never be called, but just here for clarity really.
-    [super dealloc];
+#pragma mark - Read - Core Data Methods
+
+- (NSMutableArray*)sortCompanyListByIndex:(NSMutableArray*)companyList {
+    
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"companyIndex" ascending:TRUE] autorelease];
+    NSMutableArray *sortedArray = [[NSMutableArray new] autorelease];
+    sortedArray = [[self.companyList sortedArrayUsingDescriptors:@[sortDescriptor]] mutableCopy];
+
+    return sortedArray;
+}
+
+//- (void)createCompanyClassFrom:(CompanyMO*)companyMO {
+//    
+//    CompanyClass *companyClass = [[[CompanyClass alloc] init] autorelease];
+//    companyClass.companyProducts = [[[NSMutableArray alloc]init] autorelease];
+//
+//}
+
+- (void)createProductClassFrom:(NSArray*)productMOs forCompany:(CompanyClass*)company {
+    
+    for (ProductMO *productMO in productMOs) {
+    
+        NSString *product_name = productMO.productName;
+        NSURL *product_url = [NSURL URLWithString:productMO.productURL];
+        NSUInteger product_id = [productMO.productID integerValue];
+        NSUInteger product_index = [productMO.productIndex integerValue];
+        ProductClass *product = [[ProductClass alloc] initWithProductName:product_name andProductURL:product_url andProductIndex:product_index andProductID:product_id];
+        
+        [company.companyProducts addObject:product];
+        [product release];
+    }
+}
+- (void)createCompanyClassFrom:(NSArray*)companyMOs {
+
+    self.companyList = [[[NSMutableArray alloc] init] autorelease];
+    
+    for (CompanyMO* companyMO in companyMOs) {
+        NSString *company_name = companyMO.companyName;
+        NSString *company_logo = companyMO.companyLogo;
+        NSUInteger company_index = [companyMO.companyIndex intValue];
+        NSUInteger company_id = [companyMO.companyID intValue];
+        NSString *company_symbol = companyMO.companyStockSymbol;
+        
+        CompanyClass *company = [[CompanyClass alloc]initWithCompanyName:[company_name copy] andCompanyLogo:company_logo andCompanyProducts:nil andCompanyStockSymbol:company_symbol andCompanyIndex:company_index andCompanyID:company_id] ;
+        
+        
+         if (companyMO.companyStockSymbol) {
+            company.companyStockSymbol = companyMO.companyStockSymbol;
+        }
+        else {
+            company.companyStockSymbol = @"000";
+        }
+        
+        //company.companyProducts = [[[NSMutableArray alloc] init] autorelease];
+        
+        // Iterate through companyMO.products and turn each into a product object
+        NSArray *company_products = [companyMO.products allObjects];
+        
+        [self createProductClassFrom:company_products forCompany:company];
+        
+        [self.companyList addObject:company];
+        [company release];
+    }
+    self.companyList = [self sortCompanyListByIndex:self.companyList];
+}
+
+#pragma mark - Update - Core Data Methods
+
+- (void)saveIndexChangestoCoreData {
+ 
+//    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CompanyMO"];
+//    
+//    NSError *error = nil;
+//    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+//    
+////    for (int i = 0; i < results.count; i++) {
+////        
+////        CompanyMO *companyMO = [results objectAtIndex:i];
+////        CompanyClass *companyClass = [self.companyList objectAtIndex:i];
+////        companyMO.companyIndex = [NSNumber numberWithInteger:companyClass.companyIndex];
+////    }
+//
+//
+//        
+//        for (CompanyClass *company in self.companyList){
+//            company.companyIndex = [NSNumber numberWithLong:[self.companyList indexOfObject:company]];
+//            for (CompanyMO *companyMO in results){
+//                if ([company.companyID isEqualToNumber:[companyMO.companyID intValue]]){
+//                    companyMO.companyIndex = [NSNumber numberWithInteger:company.companyIndex];
+//                    break;
+//                }
+//            }
+//        }
+//     
+//    [self saveCoreData];
+}
+
+- (void)saveCompanyChangesToCoreData:(CompanyClass*)company {
+
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CompanyMO"];
+    
+    [request setPredicate:[NSPredicate predicateWithFormat:@"companyID == %d", company.companyID]];
+    NSError *error = nil;
+    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+    
+    CompanyMO *companyMO = [results objectAtIndex:0];
+    companyMO.companyName = company.companyName;
+    
+    [self saveCoreData];
+}
+
+
+#pragma mark - Delete - Core Data Methods
+
+- (void)deleteCompany:(CompanyClass*)deleteCompany {
+    
+    [self.companyList removeObject:deleteCompany];
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CompanyMO"];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"companyID == %d", deleteCompany.companyID]];
+    NSError *error = nil;
+    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+    
+    CompanyMO* deleteMO = [results objectAtIndex:0];
+    [self.managedObjectContext deleteObject:deleteMO];
+    
+    
+    [self saveCoreData];
+}
+
+- (void)deleteProducts {
+    //
 }
 
 @end

@@ -29,13 +29,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NavCtrl/NavControllerAppDelegate.m"
-            timestampString = "481481247.904822"
+            filePath = "DataController.m"
+            timestampString = "481841868.3115"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "-application:didFinishLaunchingWithOptions:"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "-initializeCoreData"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NavCtrl/DAO.m"
+            timestampString = "483563042.624358"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "-createCompanyMOfrom:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -55,13 +71,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DataController.m"
-            timestampString = "481841868.3115"
+            filePath = "NavCtrl/DAO.m"
+            timestampString = "483572851.988238"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "-initializeCoreData"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "@implementation DAO"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[DAO addProductsToCoreData:forCompany:]"
+                  moduleName = "NavCtrl"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianne/Desktop/TurntoTech/Section3-2NavCtrl/NavCtrl/NavCtrl/DAO.m"
+                  timestampString = "484849768.652781"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "223"
+                  endingLineNumber = "223"
+                  offsetFromSymbolStart = "91">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[DAO addProductsToCoreData:forCompany:]"
+                  moduleName = "NavCtrl"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianne/Desktop/TurntoTech/Section3-2NavCtrl/NavCtrl/NavCtrl/DAO.m"
+                  timestampString = "484849768.652911"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "223"
+                  endingLineNumber = "223"
+                  offsetFromSymbolStart = "129">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NavCtrl/DAO.m"
+            timestampString = "485068393.872259"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "-saveCoreData"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
