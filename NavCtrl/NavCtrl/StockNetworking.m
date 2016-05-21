@@ -49,7 +49,7 @@
         }
         // Since we are in a block, must dispatch to get back to the main queue
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.companyViewController.tableView reloadData];
+            [self.companyViewController.collectionView reloadData];
         });
     }];
     [dataTask resume];

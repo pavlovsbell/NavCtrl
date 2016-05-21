@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionViewCell" id="gTV-IL-0wX" customClass="CompanyCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4GU-2F-dPe">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="4GU-2F-dPe" secondAttribute="height" multiplier="25:6" id="BdF-Md-Byu"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
+                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aFF-QI-3Zg">
+                        <rect key="frame" x="18" y="24" width="64" height="64"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="aFF-QI-3Zg" secondAttribute="height" multiplier="1:1" id="TGp-zo-uAU"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ma1-PH-Q9s" userLabel="stock quote">
+                        <rect key="frame" x="24" y="83" width="53" height="23"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Ma1-PH-Q9s" secondAttribute="height" multiplier="42:17" constant="-3.8235294117647101" id="ehX-8s-h9i"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHP-xk-aqR">
+                        <rect key="frame" x="0.0" y="70" width="100" height="30"/>
+                        <color key="backgroundColor" red="1" green="0.079117062060000007" blue="0.21322847049999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="lHP-xk-aqR" secondAttribute="height" multiplier="10:3" id="1BP-50-meV"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="25"/>
+                        <state key="normal" title="Delete">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="deleteButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Q1m-ki-bku"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="aFF-QI-3Zg" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="3wV-yu-R2b"/>
+                <constraint firstItem="4GU-2F-dPe" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="AGT-Jm-cLh"/>
+                <constraint firstItem="Ma1-PH-Q9s" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="21:50" constant="11" id="F18-OH-PEk"/>
+                <constraint firstItem="lHP-xk-aqR" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="FE2-Rr-iwp"/>
+                <constraint firstItem="4GU-2F-dPe" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="MpR-qC-b2a"/>
+                <constraint firstAttribute="bottom" secondItem="lHP-xk-aqR" secondAttribute="bottom" id="Okt-Hi-PUd"/>
+                <constraint firstItem="Ma1-PH-Q9s" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="WHX-yw-MIs"/>
+                <constraint firstItem="Ma1-PH-Q9s" firstAttribute="top" secondItem="aFF-QI-3Zg" secondAttribute="bottom" constant="-5" id="Y2T-yi-91g"/>
+                <constraint firstItem="aFF-QI-3Zg" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="16:25" id="dnw-ac-bwW"/>
+                <constraint firstItem="lHP-xk-aqR" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="iEe-8S-Zr1"/>
+                <constraint firstItem="aFF-QI-3Zg" firstAttribute="top" secondItem="4GU-2F-dPe" secondAttribute="bottom" id="lWE-Mb-57U"/>
+                <constraint firstItem="aFF-QI-3Zg" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" multiplier="1.11" id="t51-ey-fWJ"/>
+            </constraints>
+            <size key="customSize" width="100" height="100"/>
+            <connections>
+                <outlet property="companyName" destination="4GU-2F-dPe" id="rLi-CP-dSD"/>
+                <outlet property="deleteButton" destination="lHP-xk-aqR" id="bNL-V4-cc3"/>
+                <outlet property="image" destination="aFF-QI-3Zg" id="9Vh-9X-aZj"/>
+                <outlet property="stockQuote" destination="Ma1-PH-Q9s" id="EUG-6J-0Bw"/>
+            </connections>
+            <point key="canvasLocation" x="236" y="281"/>
+        </collectionViewCell>
+    </objects>
+</document>

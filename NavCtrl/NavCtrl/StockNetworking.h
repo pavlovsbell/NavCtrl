@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CompanyViewController.h"
-
+//#import "CompanyViewController.h"
+#import "CompanyCollectionViewController.h"
 
 @interface StockNetworking : NSObject
 
-@property (strong, nonatomic) CompanyViewController *companyViewController;
+@property (strong, nonatomic) CompanyCollectionViewController *companyViewController;
 
 - (void)getStockPrices;
 

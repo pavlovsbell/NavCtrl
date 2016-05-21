@@ -9,6 +9,7 @@
 #import "NavControllerAppDelegate.h"
 #import "CompanyViewController.h"
 #import "DAO.h"
+#import "CompanyCollectionViewController.h"
 
 @interface NavControllerAppDelegate()
 @property (nonatomic,retain) DAO *sharedDAO;
@@ -17,11 +18,12 @@
 @implementation NavControllerAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    UIViewController *rootController = [[[CompanyViewController alloc] initWithNibName:@"CompanyViewController" bundle:nil] autorelease];
-    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:rootController] autorelease];
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    [self.window setRootViewController:self.navigationController];
     [self.window makeKeyAndVisible];
+    CompanyCollectionViewController *rootController = [[[CompanyCollectionViewController alloc] initWithNibName:@"CompanyCollectionViewController" bundle:nil] autorelease];
+    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:rootController] autorelease];
+    [self.window setRootViewController:self.navigationController];
+
     [self.CDDA initializeCoreData];
      self.sharedDAO = [DAO sharedDAO];
     return YES;

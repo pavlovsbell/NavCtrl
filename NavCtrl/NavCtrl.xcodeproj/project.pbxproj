@@ -20,7 +20,6 @@
 		48A656D818163BF200746D36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48A656D618163BF200746D36 /* InfoPlist.strings */; };
 		48A656DA18163BF200746D36 /* NavCtrlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656D918163BF200746D36 /* NavCtrlTests.m */; };
 		48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656E418163C1B00746D36 /* CompanyViewController.m */; };
-		48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A656E518163C1B00746D36 /* CompanyViewController.xib */; };
 		48A656EB18163F8700746D36 /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656E918163F8700746D36 /* ProductViewController.m */; };
 		48A656EE1816468000746D36 /* Sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48A656ED1816468000746D36 /* Sunflower.gif */; };
 		DA26B9071CE943F800CBF5CE /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = DA26B9061CE943F800CBF5CE /* DAO.m */; };
@@ -36,15 +35,21 @@
 		DA26B92D1CE9472D00CBF5CE /* ProductWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA26B92B1CE9472D00CBF5CE /* ProductWebViewController.xib */; };
 		DA26B9331CE950B300CBF5CE /* CoreDataDataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = DA26B9321CE950B300CBF5CE /* CoreDataDataAccess.m */; };
 		DA26B9351CEA553300CBF5CE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA26B9341CEA553300CBF5CE /* WebKit.framework */; };
-		DA26B93F1CEA586600CBF5CE /* logoApple.png in Resources */ = {isa = PBXBuildFile; fileRef = DA26B9361CEA586600CBF5CE /* logoApple.png */; };
-		DA26B9401CEA586600CBF5CE /* logoBlackberry.png in Resources */ = {isa = PBXBuildFile; fileRef = DA26B9371CEA586600CBF5CE /* logoBlackberry.png */; };
-		DA26B9411CEA586600CBF5CE /* logoCompany1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA26B9381CEA586600CBF5CE /* logoCompany1.jpg */; };
-		DA26B9421CEA586600CBF5CE /* logoCompany2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA26B9391CEA586600CBF5CE /* logoCompany2.jpg */; };
-		DA26B9431CEA586600CBF5CE /* logoCompany3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA26B93A1CEA586600CBF5CE /* logoCompany3.jpg */; };
-		DA26B9441CEA586600CBF5CE /* logoCompany4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA26B93B1CEA586600CBF5CE /* logoCompany4.jpg */; };
-		DA26B9451CEA586600CBF5CE /* logoCompany5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA26B93C1CEA586600CBF5CE /* logoCompany5.jpg */; };
-		DA26B9461CEA586600CBF5CE /* logoHTC.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA26B93D1CEA586600CBF5CE /* logoHTC.jpg */; };
-		DA26B9471CEA586600CBF5CE /* logoSamsung.png in Resources */ = {isa = PBXBuildFile; fileRef = DA26B93E1CEA586600CBF5CE /* logoSamsung.png */; };
+		DA26B9711CEE7B0A00CBF5CE /* CompanyCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA26B96F1CEE7B0A00CBF5CE /* CompanyCollectionViewController.m */; };
+		DA6AB64F1CEEA79D001DEAE4 /* CompanyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6AB64D1CEEA79D001DEAE4 /* CompanyCollectionViewCell.m */; };
+		DA6AB6501CEEA79D001DEAE4 /* CompanyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA6AB64E1CEEA79D001DEAE4 /* CompanyCollectionViewCell.xib */; };
+		DA6AB65A1CEEB4BD001DEAE4 /* logoApple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA6AB6511CEEB4BD001DEAE4 /* logoApple.jpg */; };
+		DA6AB65B1CEEB4BD001DEAE4 /* logoBlackberry.png in Resources */ = {isa = PBXBuildFile; fileRef = DA6AB6521CEEB4BD001DEAE4 /* logoBlackberry.png */; };
+		DA6AB65C1CEEB4BD001DEAE4 /* logoCompany1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA6AB6531CEEB4BD001DEAE4 /* logoCompany1.jpg */; };
+		DA6AB65F1CEEB4BD001DEAE4 /* logoCompany4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA6AB6561CEEB4BD001DEAE4 /* logoCompany4.jpg */; };
+		DA6AB6601CEEB4BD001DEAE4 /* logoCompany5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA6AB6571CEEB4BD001DEAE4 /* logoCompany5.jpg */; };
+		DA6AB6611CEEB4BD001DEAE4 /* logoHTC.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA6AB6581CEEB4BD001DEAE4 /* logoHTC.jpg */; };
+		DA6AB6621CEEB4BD001DEAE4 /* logoSamsung.png in Resources */ = {isa = PBXBuildFile; fileRef = DA6AB6591CEEB4BD001DEAE4 /* logoSamsung.png */; };
+		DA6AB6641CEEC04E001DEAE4 /* CompanyCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA6AB6631CEEC04E001DEAE4 /* CompanyCollectionViewController.xib */; };
+		DA6AB6661CEED0F2001DEAE4 /* logoCompany2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA6AB6651CEED0F2001DEAE4 /* logoCompany2.jpg */; };
+		DA6AB6681CEED104001DEAE4 /* logoCompany3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DA6AB6671CEED104001DEAE4 /* logoCompany3.jpg */; };
+		DA6AB66C1CEF8692001DEAE4 /* ProductCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6AB66A1CEF8692001DEAE4 /* ProductCollectionViewController.m */; };
+		DA6AB66D1CEF8692001DEAE4 /* ProductCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA6AB66B1CEF8692001DEAE4 /* ProductCollectionViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +81,6 @@
 		48A656D918163BF200746D36 /* NavCtrlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavCtrlTests.m; sourceTree = "<group>"; };
 		48A656E318163C1B00746D36 /* CompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompanyViewController.h; path = ../CompanyViewController.h; sourceTree = "<group>"; };
 		48A656E418163C1B00746D36 /* CompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyViewController.m; path = ../CompanyViewController.m; sourceTree = "<group>"; };
-		48A656E518163C1B00746D36 /* CompanyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CompanyViewController.xib; path = ../CompanyViewController.xib; sourceTree = "<group>"; };
 		48A656E818163F8700746D36 /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductViewController.h; path = ../ProductViewController.h; sourceTree = "<group>"; };
 		48A656E918163F8700746D36 /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewController.m; path = ../ProductViewController.m; sourceTree = "<group>"; };
 		48A656ED1816468000746D36 /* Sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sunflower.gif; sourceTree = "<group>"; };
@@ -103,15 +107,24 @@
 		DA26B9311CE950B300CBF5CE /* CoreDataDataAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataDataAccess.h; sourceTree = "<group>"; };
 		DA26B9321CE950B300CBF5CE /* CoreDataDataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataDataAccess.m; sourceTree = "<group>"; };
 		DA26B9341CEA553300CBF5CE /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		DA26B9361CEA586600CBF5CE /* logoApple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logoApple.png; path = "../../TurntoTech/Section3-2NavCtrl/NavCtrl/Images/logoApple.png"; sourceTree = "<group>"; };
-		DA26B9371CEA586600CBF5CE /* logoBlackberry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logoBlackberry.png; path = "../../TurntoTech/Section3-2NavCtrl/NavCtrl/Images/logoBlackberry.png"; sourceTree = "<group>"; };
-		DA26B9381CEA586600CBF5CE /* logoCompany1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logoCompany1.jpg; path = "../../TurntoTech/Section3-2NavCtrl/NavCtrl/Images/logoCompany1.jpg"; sourceTree = "<group>"; };
-		DA26B9391CEA586600CBF5CE /* logoCompany2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logoCompany2.jpg; path = "../../TurntoTech/Section3-2NavCtrl/NavCtrl/Images/logoCompany2.jpg"; sourceTree = "<group>"; };
-		DA26B93A1CEA586600CBF5CE /* logoCompany3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logoCompany3.jpg; path = "../../TurntoTech/Section3-2NavCtrl/NavCtrl/Images/logoCompany3.jpg"; sourceTree = "<group>"; };
-		DA26B93B1CEA586600CBF5CE /* logoCompany4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logoCompany4.jpg; path = "../../TurntoTech/Section3-2NavCtrl/NavCtrl/Images/logoCompany4.jpg"; sourceTree = "<group>"; };
-		DA26B93C1CEA586600CBF5CE /* logoCompany5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logoCompany5.jpg; path = "../../TurntoTech/Section3-2NavCtrl/NavCtrl/Images/logoCompany5.jpg"; sourceTree = "<group>"; };
-		DA26B93D1CEA586600CBF5CE /* logoHTC.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logoHTC.jpg; path = "../../TurntoTech/Section3-2NavCtrl/NavCtrl/Images/logoHTC.jpg"; sourceTree = "<group>"; };
-		DA26B93E1CEA586600CBF5CE /* logoSamsung.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logoSamsung.png; path = "../../TurntoTech/Section3-2NavCtrl/NavCtrl/Images/logoSamsung.png"; sourceTree = "<group>"; };
+		DA26B96E1CEE7B0A00CBF5CE /* CompanyCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyCollectionViewController.h; sourceTree = "<group>"; };
+		DA26B96F1CEE7B0A00CBF5CE /* CompanyCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyCollectionViewController.m; sourceTree = "<group>"; };
+		DA6AB64C1CEEA79D001DEAE4 /* CompanyCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyCollectionViewCell.h; sourceTree = "<group>"; };
+		DA6AB64D1CEEA79D001DEAE4 /* CompanyCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyCollectionViewCell.m; sourceTree = "<group>"; };
+		DA6AB64E1CEEA79D001DEAE4 /* CompanyCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyCollectionViewCell.xib; sourceTree = "<group>"; };
+		DA6AB6511CEEB4BD001DEAE4 /* logoApple.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logoApple.jpg; sourceTree = "<group>"; };
+		DA6AB6521CEEB4BD001DEAE4 /* logoBlackberry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoBlackberry.png; sourceTree = "<group>"; };
+		DA6AB6531CEEB4BD001DEAE4 /* logoCompany1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logoCompany1.jpg; sourceTree = "<group>"; };
+		DA6AB6561CEEB4BD001DEAE4 /* logoCompany4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logoCompany4.jpg; sourceTree = "<group>"; };
+		DA6AB6571CEEB4BD001DEAE4 /* logoCompany5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logoCompany5.jpg; sourceTree = "<group>"; };
+		DA6AB6581CEEB4BD001DEAE4 /* logoHTC.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logoHTC.jpg; sourceTree = "<group>"; };
+		DA6AB6591CEEB4BD001DEAE4 /* logoSamsung.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoSamsung.png; sourceTree = "<group>"; };
+		DA6AB6631CEEC04E001DEAE4 /* CompanyCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyCollectionViewController.xib; sourceTree = "<group>"; };
+		DA6AB6651CEED0F2001DEAE4 /* logoCompany2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logoCompany2.jpg; path = ../logoCompany2.jpg; sourceTree = "<group>"; };
+		DA6AB6671CEED104001DEAE4 /* logoCompany3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logoCompany3.jpg; path = ../logoCompany3.jpg; sourceTree = "<group>"; };
+		DA6AB6691CEF8692001DEAE4 /* ProductCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCollectionViewController.h; sourceTree = "<group>"; };
+		DA6AB66A1CEF8692001DEAE4 /* ProductCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCollectionViewController.m; sourceTree = "<group>"; };
+		DA6AB66B1CEF8692001DEAE4 /* ProductCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductCollectionViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +164,10 @@
 		483796CC1BCBF7C70062D5AB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DA26B96E1CEE7B0A00CBF5CE /* CompanyCollectionViewController.h */,
+				DA26B96F1CEE7B0A00CBF5CE /* CompanyCollectionViewController.m */,
+				DA6AB6691CEF8692001DEAE4 /* ProductCollectionViewController.h */,
+				DA6AB66A1CEF8692001DEAE4 /* ProductCollectionViewController.m */,
 				48A656E318163C1B00746D36 /* CompanyViewController.h */,
 				48A656E418163C1B00746D36 /* CompanyViewController.m */,
 				48A656E818163F8700746D36 /* ProductViewController.h */,
@@ -209,15 +226,15 @@
 		48A656BB18163BF200746D36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DA26B9361CEA586600CBF5CE /* logoApple.png */,
-				DA26B9371CEA586600CBF5CE /* logoBlackberry.png */,
-				DA26B9381CEA586600CBF5CE /* logoCompany1.jpg */,
-				DA26B9391CEA586600CBF5CE /* logoCompany2.jpg */,
-				DA26B93A1CEA586600CBF5CE /* logoCompany3.jpg */,
-				DA26B93B1CEA586600CBF5CE /* logoCompany4.jpg */,
-				DA26B93C1CEA586600CBF5CE /* logoCompany5.jpg */,
-				DA26B93D1CEA586600CBF5CE /* logoHTC.jpg */,
-				DA26B93E1CEA586600CBF5CE /* logoSamsung.png */,
+				DA6AB6511CEEB4BD001DEAE4 /* logoApple.jpg */,
+				DA6AB6521CEEB4BD001DEAE4 /* logoBlackberry.png */,
+				DA6AB6531CEEB4BD001DEAE4 /* logoCompany1.jpg */,
+				DA6AB6651CEED0F2001DEAE4 /* logoCompany2.jpg */,
+				DA6AB6671CEED104001DEAE4 /* logoCompany3.jpg */,
+				DA6AB6561CEEB4BD001DEAE4 /* logoCompany4.jpg */,
+				DA6AB6571CEEB4BD001DEAE4 /* logoCompany5.jpg */,
+				DA6AB6581CEEB4BD001DEAE4 /* logoHTC.jpg */,
+				DA6AB6591CEEB4BD001DEAE4 /* logoSamsung.png */,
 				48A656ED1816468000746D36 /* Sunflower.gif */,
 				48A656BC18163BF200746D36 /* NavCtrl-Info.plist */,
 				48A656BD18163BF200746D36 /* InfoPlist.strings */,
@@ -306,7 +323,11 @@
 			isa = PBXGroup;
 			children = (
 				DA26B92B1CE9472D00CBF5CE /* ProductWebViewController.xib */,
-				48A656E518163C1B00746D36 /* CompanyViewController.xib */,
+				DA6AB64C1CEEA79D001DEAE4 /* CompanyCollectionViewCell.h */,
+				DA6AB64D1CEEA79D001DEAE4 /* CompanyCollectionViewCell.m */,
+				DA6AB64E1CEEA79D001DEAE4 /* CompanyCollectionViewCell.xib */,
+				DA6AB6631CEEC04E001DEAE4 /* CompanyCollectionViewController.xib */,
+				DA6AB66B1CEF8692001DEAE4 /* ProductCollectionViewController.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -387,20 +408,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA26B9411CEA586600CBF5CE /* logoCompany1.jpg in Resources */,
-				DA26B9441CEA586600CBF5CE /* logoCompany4.jpg in Resources */,
+				DA6AB66D1CEF8692001DEAE4 /* ProductCollectionViewController.xib in Resources */,
 				48A656EE1816468000746D36 /* Sunflower.gif in Resources */,
-				DA26B9431CEA586600CBF5CE /* logoCompany3.jpg in Resources */,
-				DA26B93F1CEA586600CBF5CE /* logoApple.png in Resources */,
-				DA26B9401CEA586600CBF5CE /* logoBlackberry.png in Resources */,
-				48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */,
-				DA26B9471CEA586600CBF5CE /* logoSamsung.png in Resources */,
+				DA6AB6621CEEB4BD001DEAE4 /* logoSamsung.png in Resources */,
+				DA6AB6661CEED0F2001DEAE4 /* logoCompany2.jpg in Resources */,
+				DA6AB65C1CEEB4BD001DEAE4 /* logoCompany1.jpg in Resources */,
+				DA6AB65F1CEEB4BD001DEAE4 /* logoCompany4.jpg in Resources */,
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
-				DA26B9451CEA586600CBF5CE /* logoCompany5.jpg in Resources */,
+				DA6AB6641CEEC04E001DEAE4 /* CompanyCollectionViewController.xib in Resources */,
 				DA26B92D1CE9472D00CBF5CE /* ProductWebViewController.xib in Resources */,
+				DA6AB6601CEEB4BD001DEAE4 /* logoCompany5.jpg in Resources */,
+				DA6AB6681CEED104001DEAE4 /* logoCompany3.jpg in Resources */,
+				DA6AB6501CEEA79D001DEAE4 /* CompanyCollectionViewCell.xib in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
-				DA26B9421CEA586600CBF5CE /* logoCompany2.jpg in Resources */,
-				DA26B9461CEA586600CBF5CE /* logoHTC.jpg in Resources */,
+				DA6AB65B1CEEB4BD001DEAE4 /* logoBlackberry.png in Resources */,
+				DA6AB65A1CEEB4BD001DEAE4 /* logoApple.jpg in Resources */,
+				DA6AB6611CEEB4BD001DEAE4 /* logoHTC.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,12 +446,15 @@
 				DA26B9071CE943F800CBF5CE /* DAO.m in Sources */,
 				48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
+				DA6AB66C1CEF8692001DEAE4 /* ProductCollectionViewController.m in Sources */,
 				DA26B9151CE9456F00CBF5CE /* ProductMO.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
 				DA26B92C1CE9472D00CBF5CE /* ProductWebViewController.m in Sources */,
 				48A656EB18163F8700746D36 /* ProductViewController.m in Sources */,
 				DA26B9161CE9456F00CBF5CE /* CompanyMO+CoreDataProperties.m in Sources */,
 				DA26B9141CE9456F00CBF5CE /* ProductMO+CoreDataProperties.m in Sources */,
+				DA6AB64F1CEEA79D001DEAE4 /* CompanyCollectionViewCell.m in Sources */,
+				DA26B9711CEE7B0A00CBF5CE /* CompanyCollectionViewController.m in Sources */,
 				DA26B90A1CE9447100CBF5CE /* Model.xcdatamodeld in Sources */,
 				DA26B91D1CE945A300CBF5CE /* Product.m in Sources */,
 				DA26B9171CE9456F00CBF5CE /* CompanyMO.m in Sources */,

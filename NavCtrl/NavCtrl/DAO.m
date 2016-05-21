@@ -188,7 +188,7 @@ static DAO *myDAO = nil;
     NSMutableArray *blackberryProducts = [[NSMutableArray alloc] initWithObjects:blackberryClassic, blackberryPassport, blackberryPriv, nil];
     
     // Create companies (each with name, logo and a product array)
-    Company *apple = [[[Company alloc] initWithCompanyName:@"Apple mobile devices" andCompanyLogo:@"logoApple.png" andCompanyProducts:appleProducts andCompanyStockSymbol:@"AAPL" andCompanyIndex:0 andCompanyID:1] autorelease];
+    Company *apple = [[[Company alloc] initWithCompanyName:@"Apple mobile devices" andCompanyLogo:@"logoApple.jpg" andCompanyProducts:appleProducts andCompanyStockSymbol:@"AAPL" andCompanyIndex:0 andCompanyID:1] autorelease];
     Company *samsung = [[[Company alloc] initWithCompanyName:@"Samsung mobile devices" andCompanyLogo:@"logoSamsung.png" andCompanyProducts:samsungProducts andCompanyStockSymbol:@"005930.KS" andCompanyIndex:1 andCompanyID:2] autorelease];
     Company *htc = [[[Company alloc] initWithCompanyName:@"HTC mobile devices" andCompanyLogo:@"logoHTC.jpg" andCompanyProducts:htcProducts andCompanyStockSymbol:@"2498.TW" andCompanyIndex:2 andCompanyID:3] autorelease];
     Company *blackberry = [[[Company alloc] initWithCompanyName:@"Blackberry mobile devices" andCompanyLogo:@"logoBlackberry.png" andCompanyProducts:blackberryProducts andCompanyStockSymbol:@"BBRY" andCompanyIndex:3 andCompanyID:4] autorelease];
