@@ -28,17 +28,15 @@
         }
     }
     NSLog(@"%@", companyStockSymbols);
+
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     NSString *urlString = [NSString stringWithFormat:@"http://finance.yahoo.com/d/quotes.csv?s=%@&f=l1", companyStockSymbols];
-    NSLog(@"%@", urlString);
+    NSURL *URL = [NSURL URLWithString:urlString];
     
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"GET"];
-    
-    // Retrieve the contents of the URL as a data object and turn data into a string, then turn data into array of quotes for company
-    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    NSURLSessionDataTask *downloadTask = [manager.session dataTaskWithURL:URL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+
         NSString *content = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
         NSLog(@"%@", content);
         NSMutableArray *stockQuotes = [[[NSMutableArray alloc] initWithArray:[content componentsSeparatedByString:@"\n"]] autorelease];
@@ -52,7 +50,8 @@
             [self.companyViewController.collectionView reloadData];
         });
     }];
-    [dataTask resume];
+    [downloadTask resume];
+    
 }
 
 @end

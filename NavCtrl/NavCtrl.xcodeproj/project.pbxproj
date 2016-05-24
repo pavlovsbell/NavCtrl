@@ -22,6 +22,7 @@
 		48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656E418163C1B00746D36 /* CompanyViewController.m */; };
 		48A656EB18163F8700746D36 /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656E918163F8700746D36 /* ProductViewController.m */; };
 		48A656EE1816468000746D36 /* Sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48A656ED1816468000746D36 /* Sunflower.gif */; };
+		73DB0DD7D1BAB448F1DCFB87 /* libPods-NavCtrl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D3E20F19FAA8793984B129 /* libPods-NavCtrl.a */; };
 		DA26B9071CE943F800CBF5CE /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = DA26B9061CE943F800CBF5CE /* DAO.m */; };
 		DA26B90A1CE9447100CBF5CE /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA26B9081CE9447100CBF5CE /* Model.xcdatamodeld */; };
 		DA26B9141CE9456F00CBF5CE /* ProductMO+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = DA26B90D1CE9456F00CBF5CE /* ProductMO+CoreDataProperties.m */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		10719C7720CD081EA2239355 /* Pods-NavCtrl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavCtrl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NavCtrl/Pods-NavCtrl.debug.xcconfig"; sourceTree = "<group>"; };
 		48A656B118163BF200746D36 /* NavCtrl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavCtrl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48A656B418163BF200746D36 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		48A656B618163BF200746D36 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -84,6 +86,8 @@
 		48A656E818163F8700746D36 /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductViewController.h; path = ../ProductViewController.h; sourceTree = "<group>"; };
 		48A656E918163F8700746D36 /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewController.m; path = ../ProductViewController.m; sourceTree = "<group>"; };
 		48A656ED1816468000746D36 /* Sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sunflower.gif; sourceTree = "<group>"; };
+		5CAE085CDD4EF15FEFA080F8 /* Pods-NavCtrl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NavCtrl.release.xcconfig"; path = "Pods/Target Support Files/Pods-NavCtrl/Pods-NavCtrl.release.xcconfig"; sourceTree = "<group>"; };
+		B5D3E20F19FAA8793984B129 /* libPods-NavCtrl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NavCtrl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA26B9051CE943F800CBF5CE /* DAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAO.h; sourceTree = "<group>"; };
 		DA26B9061CE943F800CBF5CE /* DAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAO.m; sourceTree = "<group>"; };
 		DA26B9091CE9447100CBF5CE /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 				48A656B718163BF200746D36 /* CoreGraphics.framework in Frameworks */,
 				48A656B918163BF200746D36 /* UIKit.framework in Frameworks */,
 				48A656B518163BF200746D36 /* Foundation.framework in Frameworks */,
+				73DB0DD7D1BAB448F1DCFB87 /* libPods-NavCtrl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,6 +190,7 @@
 				48A656D318163BF200746D36 /* NavCtrlTests */,
 				48A656B318163BF200746D36 /* Frameworks */,
 				48A656B218163BF200746D36 /* Products */,
+				D29512F1F7ACFCDA508453A6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -205,6 +211,7 @@
 				48A656B618163BF200746D36 /* CoreGraphics.framework */,
 				48A656B818163BF200746D36 /* UIKit.framework */,
 				48A656CD18163BF200746D36 /* XCTest.framework */,
+				B5D3E20F19FAA8793984B129 /* libPods-NavCtrl.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -260,6 +267,15 @@
 				48A656D618163BF200746D36 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D29512F1F7ACFCDA508453A6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				10719C7720CD081EA2239355 /* Pods-NavCtrl.debug.xcconfig */,
+				5CAE085CDD4EF15FEFA080F8 /* Pods-NavCtrl.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		DA26B90B1CE9447900CBF5CE /* Model */ = {
@@ -339,9 +355,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 48A656DD18163BF200746D36 /* Build configuration list for PBXNativeTarget "NavCtrl" */;
 			buildPhases = (
+				09EA28FFFD145C866BBD31D2 /* 📦 Check Pods Manifest.lock */,
 				48A656AD18163BF200746D36 /* Sources */,
 				48A656AE18163BF200746D36 /* Frameworks */,
 				48A656AF18163BF200746D36 /* Resources */,
+				E651C953DE8BF5E61FD649E8 /* 📦 Embed Pods Frameworks */,
+				359468ED13A0E69F59109ED8 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -436,6 +455,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		09EA28FFFD145C866BBD31D2 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		359468ED13A0E69F59109ED8 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavCtrl/Pods-NavCtrl-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E651C953DE8BF5E61FD649E8 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NavCtrl/Pods-NavCtrl-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		48A656AD18163BF200746D36 /* Sources */ = {
@@ -576,6 +643,7 @@
 		};
 		48A656DE18163BF200746D36 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10719C7720CD081EA2239355 /* Pods-NavCtrl.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -591,6 +659,7 @@
 		};
 		48A656DF18163BF200746D36 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5CAE085CDD4EF15FEFA080F8 /* Pods-NavCtrl.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

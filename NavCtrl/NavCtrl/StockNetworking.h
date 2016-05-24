@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 //#import "CompanyViewController.h"
 #import "CompanyCollectionViewController.h"
+#import "AFNetworking.h"
 
 @interface StockNetworking : NSObject
 
